@@ -1,0 +1,201 @@
+@font-face {
+    font-family: "FlaticonSetIvf";
+    src: url("../fonts/flaticon-set-ivf.woff2") format("woff2"),
+url("../fonts/flaticon-set-ivf.woff") format("woff"),
+url("../fonts/flaticon-set-ivf.eot") format("embedded-opentype"),
+url("../fonts/flaticon-set-ivf.ttf") format("truetype"),
+url("../fonts/flaticon-set-ivf.svg") format("svg")
+}
+
+i[class^="flaticon-set-"]:before, i[class*=" flaticon-set-"]:before {
+    font-family: FlaticonSetIvf !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-set-pregnant:before {
+    content: "\f101";
+}
+.flaticon-set-maternity-care:before {
+    content: "\f102";
+}
+.flaticon-set-ultrasound:before {
+    content: "\f103";
+}
+.flaticon-set-mother:before {
+    content: "\f104";
+}
+.flaticon-set-pregnancy:before {
+    content: "\f105";
+}
+.flaticon-set-pregnancy-test:before {
+    content: "\f106";
+}
+.flaticon-set-pregnancy-1:before {
+    content: "\f107";
+}
+.flaticon-set-pregnancy-test-1:before {
+    content: "\f108";
+}
+.flaticon-set-baby:before {
+    content: "\f109";
+}
+.flaticon-set-pregnancy-test-2:before {
+    content: "\f10a";
+}
+.flaticon-set-ultrasonography:before {
+    content: "\f10b";
+}
+.flaticon-set-fertilization:before {
+    content: "\f10c";
+}
+.flaticon-set-placenta:before {
+    content: "\f10d";
+}
+.flaticon-set-birth:before {
+    content: "\f10e";
+}
+.flaticon-set-ivf:before {
+    content: "\f10f";
+}
+.flaticon-set-ivf-1:before {
+    content: "\f110";
+}
+.flaticon-set-ivf-2:before {
+    content: "\f111";
+}
+.flaticon-set-in-vitro:before {
+    content: "\f112";
+}
+.flaticon-set-insemination:before {
+    content: "\f113";
+}
+.flaticon-set-development:before {
+    content: "\f114";
+}
+.flaticon-set-doctor:before {
+    content: "\f115";
+}
+.flaticon-set-doctor-1:before {
+    content: "\f116";
+}
+.flaticon-set-parents:before {
+    content: "\f117";
+}
+.flaticon-set-maternity:before {
+    content: "\f118";
+}
+.flaticon-set-baby-1:before {
+    content: "\f119";
+}
+.flaticon-set-birth-1:before {
+    content: "\f11a";
+}
+.flaticon-set-mother-1:before {
+    content: "\f11b";
+}
+.flaticon-set-pregnant-1:before {
+    content: "\f11c";
+}
+.flaticon-set-maternity-1:before {
+    content: "\f11d";
+}
+.flaticon-set-health-insurance:before {
+    content: "\f11e";
+}
+.flaticon-set-check-up:before {
+    content: "\f11f";
+}
+.flaticon-set-patient:before {
+    content: "\f120";
+}
+.flaticon-set-personal-hygiene:before {
+    content: "\f121";
+}
+.flaticon-set-provider:before {
+    content: "\f122";
+}
+.flaticon-set-medical-test:before {
+    content: "\f123";
+}
+.flaticon-set-healthcare:before {
+    content: "\f124";
+}
+.flaticon-set-hospital:before {
+    content: "\f125";
+}
+.flaticon-set-medicine:before {
+    content: "\f126";
+}
+.flaticon-set-health-check:before {
+    content: "\f127";
+}
+.flaticon-set-doctor-2:before {
+    content: "\f128";
+}
+.flaticon-set-consultation:before {
+    content: "\f129";
+}
+.flaticon-set-blood-test:before {
+    content: "\f12a";
+}
+.flaticon-set-medical-team:before {
+    content: "\f12b";
+}
+.flaticon-set-pills:before {
+    content: "\f12c";
+}
+.flaticon-set-first-aid-kit:before {
+    content: "\f12d";
+}
+.flaticon-set-ambulance:before {
+    content: "\f12e";
+}
+.flaticon-set-pharmacy:before {
+    content: "\f12f";
+}
+.flaticon-set-chat:before {
+    content: "\f130";
+}
+.flaticon-set-research:before {
+    content: "\f131";
+}
+.flaticon-set-pills-1:before {
+    content: "\f132";
+}
+.flaticon-set-drug:before {
+    content: "\f133";
+}
+.flaticon-set-sperm:before {
+    content: "\f134";
+}
+.flaticon-set-ivf-3:before {
+    content: "\f135";
+}
+.flaticon-set-ivf-4:before {
+    content: "\f136";
+}
+.flaticon-set-ivf-5:before {
+    content: "\f137";
+}
+.flaticon-set-ivf-6:before {
+    content: "\f138";
+}
+.flaticon-set-ultrasound-1:before {
+    content: "\f139";
+}
+.flaticon-set-delivery-time:before {
+    content: "\f13a";
+}
+.flaticon-set-reproductive:before {
+    content: "\f13b";
+}
+.flaticon-set-contraceptive:before {
+    content: "\f13c";
+}
+
