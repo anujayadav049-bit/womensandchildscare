@@ -66,6 +66,10 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 .profile-head.green{background:linear-gradient(135deg,#00B894 0%,#55EFC4 100%)}
 .profile-head .p-avatar{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0}
 @media(max-width:768px){.sidebar{min-height:auto;position:static}}
+.page-card{background:#fff;border:1px solid #FDECF3;border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:.2s}
+.page-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(232,67,147,.10);color:var(--text)}
+.page-card i{width:44px;height:44px;border-radius:12px;background:var(--pink-light);color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dropdown-sub{border-left:3px solid var(--pink-light);margin-left:14px;padding-left:6px}
 </style>
 </head>
 <body>
@@ -78,6 +82,18 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
   <button onclick="showSection('dashboard',this)" class="nav-link active"><i class="fa-solid fa-border-all"></i> Dashboard</button>
   <button onclick="showSection('appointments',this)" class="nav-link"><i class="fa-solid fa-calendar-check"></i> Appointments <span class="count-badge">{{ $appointments->count() }}</span></button>
   <button onclick="showSection('messages',this)" class="nav-link"><i class="fa-solid fa-envelope"></i> Messages <span class="count-badge">{{ $messages->count() }}</span></button>
+
+  <div class="menu-label">WEBSITE</div>
+  <button onclick="togglePages(this)" class="nav-link" id="allPagesBtn"><i class="fa-solid fa-layer-group"></i> All Pages <span class="ms-auto" id="pagesArrow" style="font-size:11px;transition:.3s">▼</span></button>
+  <div id="pagesDropdown" class="dropdown-sub" style="display:none">
+    <a href="/admin/pages/home" class="nav-link"><i class="fa-solid fa-house"></i> Home Page</a>
+    <a href="/admin/pages/about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Page</a>
+    <a href="/admin/pages/doctor" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Page</a>
+    <a href="/admin/pages/services" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Services Page</a>
+    <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact Page</a>
+    <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  </div>
+
   <div class="menu-label">GENERAL</div>
   <a href="/" target="_blank" class="nav-link"><i class="fa-solid fa-globe"></i> View Website</a>
   <a href="/admin/logout" class="nav-link" style="color:#D63031"><i class="fa-solid fa-right-from-bracket" style="background:#FFF1F1;color:#D63031"></i> Logout</a>
@@ -105,6 +121,18 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       <div class="col-md-4"><div class="stat-card green d-flex justify-content-between align-items-center" onclick="showSection('messages')"><div><p class="text-muted mb-1" style="font-size:12px;font-weight:600;letter-spacing:.5px">TOTAL MESSAGES</p><h2>{{ $messages->count() }}</h2><small style="color:var(--green);font-weight:700">View All →</small></div><div class="stat-icon" style="background:var(--green-light);color:var(--green)"><i class="fa-solid fa-envelope"></i></div></div></div>
       <div class="col-md-4"><div class="stat-card purple d-flex justify-content-between align-items-center"><div><p class="text-muted mb-1" style="font-size:12px;font-weight:600;letter-spacing:.5px">TODAY'S APPOINTMENTS</p><h2>{{ $appointments->where('created_at','>=',now()->startOfDay())->count() }}</h2><small class="text-muted">Received today</small></div><div class="stat-icon" style="background:var(--purple-light);color:var(--purple)"><i class="fa-solid fa-clock"></i></div></div></div>
     </div>
+
+    <div class="card mb-4"><div class="card-header"><h5 class="fw-bold mb-0" style="font-size:16px">📄 Website Pages - Click to Edit</h5></div>
+      <div class="p-3"><div class="row g-3">
+        <div class="col-md-4"><a href="/admin/pages/home" class="page-card"><i class="fa-solid fa-house"></i><div><b>Home Page</b><br><small class="text-muted">Hero, Banner, Intro →</small></div></a></div>
+        <div class="col-md-4"><a href="/admin/pages/about" class="page-card"><i class="fa-solid fa-circle-info"></i><div><b>About Page</b><br><small class="text-muted">Clinic About →</small></div></a></div>
+        <div class="col-md-4"><a href="/admin/pages/doctor" class="page-card"><i class="fa-solid fa-user-doctor"></i><div><b>Doctor Page</b><br><small class="text-muted">Dr. Anubha Gupta →</small></div></a></div>
+        <div class="col-md-4"><a href="/admin/pages/services" class="page-card"><i class="fa-solid fa-stethoscope"></i><div><b>Services Page</b><br><small class="text-muted">All Services →</small></div></a></div>
+        <div class="col-md-4"><a href="/admin/pages/contact" class="page-card"><i class="fa-solid fa-phone"></i><div><b>Contact Page</b><br><small class="text-muted">Address, Map →</small></div></a></div>
+        <div class="col-md-4"><a href="/admin/settings" class="page-card"><i class="fa-solid fa-gear"></i><div><b>Header / Footer</b><br><small class="text-muted">Phone, Email, Address →</small></div></a></div>
+      </div></div>
+    </div>
+
     <div class="card"><div class="card-header d-flex justify-content-between align-items-center"><h5 class="fw-bold mb-0" style="font-size:16px">Recent Appointments</h5><button class="btn-pink btn-sm" onclick="showSection('appointments')">View All</button></div>
       <div class="table-responsive"><table class="table mb-0"><thead><tr><th>Patient</th><th>Phone</th><th>Doctor</th><th>Date & Time</th><th>Status</th></tr></thead><tbody>
       @forelse($appointments->take(5) as $a)<tr><td><div class="d-flex align-items-center gap-2"><div class="avatar">{{ substr($a->name,0,1) }}</div><b>{{ $a->name }}</b></div></td><td>{{ $a->phone }}</td><td>{{ $a->doctor }}</td><td>{{ $a->date ?? '-' }} • {{ $a->time ?? '-' }}</td><td><span class="badge-time">New</span></td></tr>@empty<tr><td colspan="5" class="text-center py-4 text-muted">No appointments yet</td></tr>@endforelse
@@ -163,7 +191,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
     </div>
   </div>
 
-  <!-- APPOINTMENT DETAIL - RIGHT SIDE -->
+  <!-- APPOINTMENT DETAIL -->
   <div id="section-appt-detail" class="section">
     <button class="btn btn-light mb-3" style="border-radius:11px;border:1px solid #FDECF3" onclick="showSection('appointments')"><i class="fa-solid fa-arrow-left me-2"></i> Back to Appointments</button>
     <div class="detail-card">
@@ -180,7 +208,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
     </div>
   </div>
 
-  <!-- MESSAGE DETAIL - RIGHT SIDE -->
+  <!-- MESSAGE DETAIL -->
   <div id="section-msg-detail" class="section">
     <button class="btn btn-light mb-3" style="border-radius:11px;border:1px solid #FDECF3" onclick="showSection('messages')"><i class="fa-solid fa-arrow-left me-2"></i> Back to Messages</button>
     <div class="detail-card">
@@ -200,6 +228,19 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 </div></div>
 
 <script>
+function togglePages(btn){
+  let drop = document.getElementById('pagesDropdown');
+  let arrow = document.getElementById('pagesArrow');
+  if(drop.style.display === 'none'){
+    drop.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+    btn.classList.add('active');
+  } else {
+    drop.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    btn.classList.remove('active');
+  }
+}
 function showSection(name, btn){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('show'));
   document.getElementById('section-'+name).classList.add('show');

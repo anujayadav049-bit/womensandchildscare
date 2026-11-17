@@ -57,10 +57,10 @@
 
             <div class="right-box">
               <ul class="social-icon-list one">
-                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                <li><a href="{{ $settings->twitter ?? '#' }}"><i class="fa-brands fa-twitter"></i></a></li>
+                <li><a href="{{ $settings->facebook ?? '#' }}"><i class="fa-brands fa-facebook-f"></i></a></li>
+                <li><a href="{{ $settings->youtube ?? '#' }}"><i class="fa-brands fa-youtube"></i></a></li>
+                <li><a href="{{ $settings->linkedin ?? '#' }}"><i class="fa-brands fa-linkedin-in"></i></a></li>
               </ul>
               <button class="mobile-nav-toggler"><span></span><span></span><span></span></button>
             </div>
@@ -84,29 +84,29 @@
               <div class="contact-info-box">
                 <i class="icon lnr-icon-phone-handset"></i>
                 <span class="title">Call Now</span>
-                <a href="tel:+919015598903">+91-90 15 59 8903</a>
+                <a href="tel:{{ $settings->phone ?? '+919015598903' }}">{{ $settings->phone ?? '+91-90 15 59 8903' }}</a>
               </div>
             </li>
             <li>
               <div class="contact-info-box">
                 <span class="icon lnr-icon-envelope1"></span>
                 <span class="title">Send Email</span>
-                <a href="mailto:info@womenandchildcare.com">info@womenandchildcare.com</a>
+                <a href="mailto:{{ $settings->email ?? 'info@womenandchildcare.com' }}">{{ $settings->email ?? 'info@womenandchildcare.com' }}</a>
               </div>
             </li>
             <li>
               <div class="contact-info-box">
                 <span class="icon lnr-icon-clock"></span>
                 <span class="title">Timing</span>
-                Mon - Sat 8:00 - 6:30, Sunday - CLOSED
+                {{ $settings->timing ?? 'Mon - Sat 8:00 - 6:30, Sunday - CLOSED' }}
               </div>
             </li>
           </ul>
           <ul class="social-links">
-            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="{{ $settings->twitter ?? '#' }}"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="{{ $settings->facebook ?? '#' }}"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="{{ $settings->pinterest ?? '#' }}"><i class="fab fa-pinterest"></i></a></li>
+            <li><a href="{{ $settings->instagram ?? '#' }}"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </nav>
       </div>
@@ -142,9 +142,9 @@
               </nav>
               <div class="mobile-nav-toggler"><span></span><span></span><span></span></div>
             </div>
-            <a href="tel:+919015598903" class="header-phone_box">
+            <a href="tel:{{ $settings->phone ?? '+919015598903' }}" class="header-phone_box">
               <span class="icon"><i aria-hidden="true" class="fas fa-phone-alt"></i></span>
-              <span class="info">Call Anytime <strong> +91-90 15 59 8903</strong></span>
+              <span class="info">Call Anytime <strong> {{ $settings->phone ?? '+91-90 15 59 8903' }}</strong></span>
             </a>
           </div>
         </div>
@@ -168,13 +168,13 @@
                   <div class="footer-widget about-widget wow fadeInLeft">
                     <div class="widget-content">
                       <div class="logo"><a href="{{ url('/') }}"><img src="{{ asset('images/logo1.jpeg') }}" alt=""></a></div>
-                      <div class="text text-white">Complete, safe and caring treatment for mother and child — from pregnancy to delivery and childhood, all under one roof.</div>
+                      <div class="text text-white">{{ $settings->footer_about ?? 'Complete, safe and caring treatment for mother and child — from pregnancy to delivery and childhood, all under one roof.' }}</div>
                       <div class="social-widget">
                         <ul class="social-icon-list1">
-                          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                          <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                          <li><a href="{{ $settings->twitter ?? '#' }}"><i class="fab fa-twitter"></i></a></li>
+                          <li><a href="{{ $settings->facebook ?? '#' }}"><i class="fab fa-facebook-f"></i></a></li>
+                          <li><a href="{{ $settings->pinterest ?? '#' }}"><i class="fab fa-pinterest-p"></i></a></li>
+                          <li><a href="{{ $settings->instagram ?? '#' }}"><i class="fab fa-instagram"></i></a></li>
                         </ul>
                       </div>
                     </div>
@@ -200,9 +200,9 @@
                     <div class="h4 widget-title">Contact</div>
                     <div class="widget-content">
                       <div class="text">Visit us for mother and child care, or call us to book your appointment today.</div>
-                      <div class="info"><i aria-hidden="true" class=" flaticon-common-email-1"></i><span>info@womenandchildcare.com</span></div>
-                      <div class="info"><i aria-hidden="true" class=" flaticon-common-location"></i><span> H.No-211, Sector-31, Gurgaon, Haryana India</span></div>
-                      <div class="info"><i aria-hidden="true" class=" flaticon-common-call-1"></i><span> +91-90 15 59 8903</span></div>
+                      <div class="info"><i aria-hidden="true" class=" flaticon-common-email-1"></i><span>{{ $settings->email ?? 'info@womenandchildcare.com' }}</span></div>
+                      <div class="info"><i aria-hidden="true" class=" flaticon-common-location"></i><span> {{ $settings->address ?? 'H.No-211, Sector-31, Gurgaon, Haryana India' }}</span></div>
+                      <div class="info"><i aria-hidden="true" class=" flaticon-common-call-1"></i><span> {{ $settings->phone ?? '+91-90 15 59 8903' }}</span></div>
                     </div>
                   </div>
                 </div>
@@ -210,7 +210,7 @@
                   <div class="footer-widget newsletter-widget style-two col wow fadeInLeft" data-wow-delay="400ms">
                     <div class="h4 widget-title">About Us</div>
                     <div class="widget-content">
-                      <div class="text">We provide trusted care for every mother and child with personal attention, safety and love.</div>
+                      <div class="text">{{ $settings->footer_about_2 ?? 'We provide trusted care for every mother and child with personal attention, safety and love.' }}</div>
                       <div class="form-clt">
                         <input type="email" name="email" id="email2" placeholder="Email Address" required="">
                         <button class="submit-btn" type="submit"><i class="fa-regular fa-paper-plane"></i></button>
@@ -224,7 +224,7 @@
           <div class="auto-container">
             <div class="footer-bottom">
               <div class="inner-container justify-content-center justify-content-md-between">
-                <p class="copyright-text">© Copyright 2026 by womenandchildcare.com</p>
+                <p class="copyright-text">{{ $settings->copyright ?? '© Copyright 2026 by womenandchildcare.com' }}</p>
                 <ul class="d-flex align-items-center">
                   <li><a href="#0">Trams & Condition</a></li>
                   <li><a href="#0">Privacy Policy</a></li>

@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\ContactMessage;
+use App\Http\Controllers\PageController;
 
 // --- Public Pages ---
 Route::get('/', function () { return view('home'); });
@@ -75,3 +76,13 @@ Route::post('/contact', function (Request $request) {
     ContactMessage::create($request->only(['name','phone','email','subject','message']));
     return back()->with('success', 'Thank you! Your message has been sent. We will call you back soon.');
 });
+
+Route::get('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'edit'])->name('admin.settings.edit');
+Route::post('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('admin.settings.update');
+Route::get('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'edit'])->name('admin.pages.edit');
+Route::post('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'update'])->name('admin.pages.update');
+
+
+// Admin Pages - Dropdown wale
+Route::get('/admin/pages/{slug}', [PageController::class, 'edit'])->name('admin.pages.edit');
+Route::put('/admin/pages/{slug}', [PageController::class, 'update'])->name('admin.pages.update');
