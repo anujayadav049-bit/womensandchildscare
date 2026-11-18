@@ -3,26 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <title>@yield('title', 'Women & Childs Care')</title>
-  <!-- Stylesheets -->
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/style-home-1.css') }}" rel="stylesheet" />
   @stack('styles')
-
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
   <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
-
-  <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-
 <body>
   <div class="page-wrapper">
-
     <div class="preloader"></div>
-
-    <!-- Back-to-top start -->
     <div class="back-to-top-wrapper">
       <button id="back_to_top" type="button" class="back-to-top-btn">
         <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +22,6 @@
         </svg>
       </button>
     </div>
-    <!-- Back-to-top end -->
 
     <!-- Main Header-->
     <header class="main-header header-style-one">
@@ -40,21 +31,20 @@
             <div class="left-box">
               <div class="logo-box">
                 <div class="logo">
-                  <a href="{{ url('/') }}"><img src="{{ asset('images/logo1.jpeg') }}" alt="Logo" /></a>
+                  <a href="{{ url('/') }}"><img src="{{ asset($settings->logo ?? 'images/logo1.jpeg') }}" alt="{{ $settings->logo_alt ?? 'Women & Child Care' }}" /></a>
                 </div>
               </div>
               <div class="nav-outer">
                 <nav class="nav main-menu">
                   <ul class="navigation">
-                    <li class="{{ request()->is('/') ? 'current' : '' }}"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="{{ request()->is('about') ? 'current' : '' }}"><a href="{{ url('/about') }}">About</a></li>
-                    <li class="{{ request()->is('doctor') ? 'current' : '' }}"><a href="{{ url('/doctor') }}">Doctors</a></li>
-                    <li class="{{ request()->is('contact') ? 'current' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
+                    <li class="{{ request()->is('/') ? 'current' : '' }}"><a href="{{ url('/') }}">{{ $settings->menu1 ?? 'Home' }}</a></li>
+                    <li class="{{ request()->is('about') ? 'current' : '' }}"><a href="{{ url('/about') }}">{{ $settings->menu2 ?? 'About' }}</a></li>
+                    <li class="{{ request()->is('doctor') ? 'current' : '' }}"><a href="{{ url('/doctor') }}">{{ $settings->menu3 ?? 'Doctors' }}</a></li>
+                    <li class="{{ request()->is('contact') ? 'current' : '' }}"><a href="{{ url('/contact') }}">{{ $settings->menu4 ?? 'Contact' }}</a></li>
                   </ul>
                 </nav>
               </div>
             </div>
-
             <div class="right-box">
               <ul class="social-icon-list one">
                 <li><a href="{{ $settings->twitter ?? '#' }}"><i class="fa-brands fa-twitter"></i></a></li>
@@ -68,13 +58,13 @@
         </div>
       </div>
 
-      <!-- Mobile Menu  -->
+      <!-- Mobile Menu -->
       <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <nav class="menu-box">
           <div class="upper-box">
             <div class="nav-logo">
-              <a href="{{ url('/') }}"><img src="{{ asset('images/logo5.jpg') }}" alt=""></a>
+              <a href="{{ url('/') }}"><img src="{{ asset($settings->logo2 ?? 'images/logo5.jpg') }}" alt="{{ $settings->logo_alt ?? 'Logo' }}"></a>
             </div>
             <div class="close-btn"><i class="icon fa fa-times"></i></div>
           </div>
@@ -110,7 +100,6 @@
           </ul>
         </nav>
       </div>
-      <!-- End Mobile Menu -->
 
       <!-- Header Search -->
       <div class="search-popup">
@@ -125,14 +114,13 @@
           </form>
         </div>
       </div>
-      <!-- End Header Search -->
 
-      <!-- Sticky Header  -->
+      <!-- Sticky Header -->
       <div class="sticky-header">
         <div class="auto-container">
           <div class="inner-container">
             <div class="logo">
-              <a href="{{ url('/') }}"><img src="{{ asset('images/logo5.jpg') }}" alt=""></a>
+              <a href="{{ url('/') }}"><img src="{{ asset($settings->logo2 ?? 'images/logo5.jpg') }}" alt="{{ $settings->logo_alt ?? 'Logo' }}"></a>
             </div>
             <div class="nav-outer">
               <nav class="main-menu">
@@ -149,11 +137,8 @@
           </div>
         </div>
       </div>
-      <!-- End Sticky Menu -->
     </header>
-    <!--End Main Header -->
 
-    {{-- Yaha har page ka beech wala content aayega --}}
     @yield('content')
 
     <!-- Main Footer -->
@@ -167,7 +152,7 @@
                 <div class="footer-column border-0 col-xl-3 col-lg-9">
                   <div class="footer-widget about-widget wow fadeInLeft">
                     <div class="widget-content">
-                      <div class="logo"><a href="{{ url('/') }}"><img src="{{ asset('images/logo1.jpeg') }}" alt=""></a></div>
+                      <div class="logo"><a href="{{ url('/') }}"><img src="{{ asset($settings->logo3 ?? $settings->logo ?? 'images/logo1.jpeg') }}" alt="{{ $settings->logo_alt ?? 'Logo' }}"></a></div>
                       <div class="text text-white">{{ $settings->footer_about ?? 'Complete, safe and caring treatment for mother and child — from pregnancy to delivery and childhood, all under one roof.' }}</div>
                       <div class="social-widget">
                         <ul class="social-icon-list1">
@@ -199,7 +184,7 @@
                   <div class="footer-widget contact-widget style-two col wow fadeInLeft" data-wow-delay="400ms">
                     <div class="h4 widget-title">Contact</div>
                     <div class="widget-content">
-                      <div class="text">Visit us for mother and child care, or call us to book your appointment today.</div>
+                      <div class="text">{{ $settings->footer_contact_text ?? 'Visit us for mother and child care, or call us to book your appointment today.' }}</div>
                       <div class="info"><i aria-hidden="true" class=" flaticon-common-email-1"></i><span>{{ $settings->email ?? 'info@womenandchildcare.com' }}</span></div>
                       <div class="info"><i aria-hidden="true" class=" flaticon-common-location"></i><span> {{ $settings->address ?? 'H.No-211, Sector-31, Gurgaon, Haryana India' }}</span></div>
                       <div class="info"><i aria-hidden="true" class=" flaticon-common-call-1"></i><span> {{ $settings->phone ?? '+91-90 15 59 8903' }}</span></div>
@@ -236,10 +221,7 @@
         </div>
       </div>
     </footer>
-    <!--End Main Footer -->
   </div>
-<!-- End Page Wrapper -->
-
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/popper.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>

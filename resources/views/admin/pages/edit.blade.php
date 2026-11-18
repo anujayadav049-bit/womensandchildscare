@@ -16,7 +16,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 .sidebar .logo span{color:var(--pink)}
 .sidebar .logo small{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--muted)}
 .sidebar .menu-label{font-size:11px;font-weight:700;letter-spacing:1px;color:#B2BEC3;margin:18px 0 8px 10px}
-.sidebar .nav-link{color:#636E72;border-radius:12px;padding:12px;margin-bottom:4px;font-weight:600;font-size:13.5px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.sidebar .nav-link{color:#636E72;border-radius:12px;padding:12px;margin-bottom:4px;font-weight:600;font-size:13.5px;text-decoration:none;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;cursor:pointer}
 .sidebar .nav-link i{width:32px;height:32px;border-radius:9px;background:#FFF0F5;color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .sidebar .nav-link:hover{background:var(--pink-soft);color:var(--pink-dark)}
 .sidebar .nav-link.active{background:var(--pink);color:#fff;box-shadow:0 8px 20px rgba(232,67,147,.35)}
@@ -27,23 +27,28 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 .form-control:focus{border-color:var(--pink);box-shadow:0 0 0 4px #FDECF3;outline:none;background:#fff}
 .btn-pink{background:var(--pink);color:#fff;border:0;padding:11px 25px;border-radius:10px;font-weight:600;font-size:14px}
 .btn-pink:hover{background:var(--pink-dark);color:#fff}
+.dropdown-sub{border-left:3px solid var(--pink-light);margin-left:14px;padding-left:6px}
 </style>
 </head>
 <body>
 <div class="container-fluid"><div class="row">
 
-<!-- LEFT SIDEBAR - SAME AS DASHBOARD -->
+<!-- LEFT SIDEBAR -->
 <div class="col-md-2 sidebar">
   <div class="logo">Women & <span>Child Care</span><br><small>GURUGRAM • ADMIN PANEL</small></div>
   <div class="menu-label">MAIN MENU</div>
   <a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-border-all"></i> Dashboard</a>
 
-  <div class="menu-label">PAGES</div>
-  <a href="/admin/pages/home" class="nav-link {{ $page->slug=='home' ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Home Page</a>
-  <a href="/admin/pages/about" class="nav-link {{ $page->slug=='about' ? 'active' : '' }}"><i class="fa-solid fa-circle-info"></i> About Page</a>
-  <a href="/admin/pages/services" class="nav-link {{ $page->slug=='services' ? 'active' : '' }}"><i class="fa-solid fa-stethoscope"></i> Services Page</a>
-  <a href="/admin/pages/contact" class="nav-link {{ $page->slug=='contact' ? 'active' : '' }}"><i class="fa-solid fa-phone"></i> Contact Page</a>
-  <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  <div class="menu-label">WEBSITE</div>
+  <button onclick="togglePages(this)" class="nav-link active"><i class="fa-solid fa-layer-group"></i> All Pages <span class="ms-auto" id="pagesArrow" style="font-size:11px;transition:.3s">▼</span></button>
+  <div id="pagesDropdown" class="dropdown-sub" style="display:block">
+    <a href="/admin/pages/home" class="nav-link {{ $page->slug=='home' ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Home Page</a>
+    <a href="/admin/pages/about" class="nav-link {{ $page->slug=='about' ? 'active' : '' }}"><i class="fa-solid fa-circle-info"></i> About Page</a>
+    <a href="/admin/pages/doctor" class="nav-link {{ $page->slug=='doctor' ? 'active' : '' }}"><i class="fa-solid fa-user-doctor"></i> Doctor Page</a>
+    <a href="/admin/pages/services" class="nav-link {{ $page->slug=='services' ? 'active' : '' }}"><i class="fa-solid fa-stethoscope"></i> Services Page</a>
+    <a href="/admin/pages/contact" class="nav-link {{ $page->slug=='contact' ? 'active' : '' }}"><i class="fa-solid fa-phone"></i> Contact Page</a>
+    <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  </div>
 
   <div class="menu-label">GENERAL</div>
   <a href="/" target="_blank" class="nav-link"><i class="fa-solid fa-globe"></i> View Website</a>
@@ -59,7 +64,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 <!-- RIGHT SIDE -->
 <div class="col-md-10 p-3 p-md-4">
   <div class="topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-    <div><h4 class="fw-bold mb-0">{{ $page->title }} Edit Karo ✏️</h4><p class="text-muted mb-0" style="font-size:13px">Yaha se badlo, Save dabao, website pe turant badal jayega.</p></div>
+    <div><h4 class="fw-bold mb-0">Edit {{ $page->title }} ✏️</h4><p class="text-muted mb-0" style="font-size:13px">Edit here, click Save, it will update on website instantly.</p></div>
     <a href="/admin/dashboard" class="btn btn-light" style="border-radius:11px;border:1px solid #FDECF3"><i class="fa-solid fa-arrow-left me-2"></i> Back to Dashboard</a>
   </div>
 
@@ -70,19 +75,20 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
   <div class="card p-4">
     <form method="POST" action="{{ route('admin.pages.update', $page->slug) }}">
       @csrf
+      @method('PUT')
       <div class="mb-3">
         <label class="fw-bold mb-1">Page Title</label>
-        <input type="text" name="title" value="{{ $page->title }}" class="form-control" placeholder="Jaise - About Us">
+        <input type="text" name="title" value="{{ $page->title }}" class="form-control" placeholder="e.g. About Us">
       </div>
 
       <div class="mb-3">
         <label class="fw-bold mb-1">Main Content</label>
-        <textarea name="content" rows="8" class="form-control" placeholder="Is page ka main text yaha likho...">{{ $page->content }}</textarea>
+        <textarea name="content" rows="8" class="form-control" placeholder="Write main text of this page here...">{{ $page->content }}</textarea>
       </div>
 
       <div class="mb-3">
-        <label class="fw-bold mb-1">Second Content (Agar ho to)</label>
-        <textarea name="content2" rows="5" class="form-control" placeholder="Aur extra text yaha...">{{ $page->content2 }}</textarea>
+        <label class="fw-bold mb-1">Second Content</label>
+        <textarea name="content2" rows="5" class="form-control" placeholder="Write extra text here...">{{ $page->content2 }}</textarea>
       </div>
 
       <button type="submit" class="btn-pink"><i class="fa-solid fa-floppy-disk me-2"></i> Save Page</button>
@@ -92,5 +98,13 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 </div>
 
 </div></div>
+<script>
+function togglePages(btn){
+  let drop = document.getElementById('pagesDropdown');
+  let arrow = document.getElementById('pagesArrow');
+  if(drop.style.display === 'none'){ drop.style.display='block'; arrow.style.transform='rotate(180deg)'; }
+  else { drop.style.display='none'; arrow.style.transform='rotate(0deg)'; }
+}
+</script>
 </body>
 </html>
