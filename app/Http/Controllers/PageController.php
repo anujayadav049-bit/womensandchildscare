@@ -18,14 +18,29 @@ class PageController extends Controller
         return view('admin.pages.edit', compact('page'));
     }
 
-    public function update(Request $request, $slug)
-    {
-        $page = Page::where('slug', $slug)->firstOrFail();
+   public function update(Request $request, $slug)
+{
+    $page = Page::where('slug', $slug)->firstOrFail();
 
-        // Jo bhi form me aaya, sab save kar do
-        $data = $request->except(['_token', '_method']);
-        $page->update($data);
+    $data = $request->except(['_token', '_method', 'hero_image']);
 
-        return back()->with('success', ucfirst($slug).' Page Updated Successfully!');
+    if ($request->hasFile('hero_image')) {
+        $file = $request->file('hero_image');
+        $name = 'hero-' . time() . '.' . $file->getClientOriginalExtension();
+
+        $destination = public_path('images/banner');
+        if (!is_dir($destination)) {
+            mkdir($destination, 0777, true);
+        }
+
+        // move() ki jagah copy() - Permission wali problem bypass ho jayegi
+        copy($file->getRealPath(), $destination . '/' . $name);
+
+        $data['hero_image'] = 'images/banner/' . $name;
     }
+
+    $page->update($data);
+
+    return back()->with('success', ucfirst($slug).' Page Updated Successfully!');
+}
 }

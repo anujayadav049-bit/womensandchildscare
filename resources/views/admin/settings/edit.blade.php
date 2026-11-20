@@ -57,7 +57,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 </div>
 <div class="col-md-10 p-3 p-md-4">
   <div class="topbar d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-    <div><h4 class="fw-bold mb-0">Header / Footer Settings ⚙️</h4><p class="text-muted mb-0" style="font-size:13px">Logo, Menu, Contact, Icons, Quick Links, Footer - Sab kuch yahi se.</p></div>
+    <div><h4 class="fw-bold mb-0">Header / Footer Settings ⚙️</h4></div>
     <a href="/admin/dashboard" class="btn btn-light" style="border-radius:11px;border:1px solid #FDECF3"><i class="fa-solid fa-arrow-left me-2"></i> Back</a>
   </div>
   @if(session('success'))<div class="alert alert-success" style="border-radius:12px">{{ session('success') }}</div>@endif
@@ -67,7 +67,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       @csrf
 
       {{-- 1. HEADER LOGO --}}
-      <div class="section-title">1. Header Logo - Upload / Select</div>
+      <div class="section-title">1. Header Logo </div>
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="fw-bold mb-1">Header Logo</label>
@@ -96,7 +96,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       </div>
 
       {{-- 3. CONTACT --}}
-      <div class="section-title">3. Contact Details - Phone, Email, Address, Timing (Header + Mobile Menu)</div>
+      <div class="section-title">3. Contact Details - </div>
       <div class="row">
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Phone Number</label><input type="text" name="phone" value="{{ $settings->phone ?? '+91-90 15 59 8903' }}" class="form-control"></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Email Address</label><input type="text" name="email" value="{{ $settings->email ?? 'info@womenandchildcare.com' }}" class="form-control"></div>
@@ -105,8 +105,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       </div>
 
       {{-- 4. HEADER SOCIAL ICONS --}}
-      <div class="section-title">4. Header Social Icons - Sirf Link Paste Karna Hai</div>
-      <div class="alert alert-info" style="border-radius:12px;font-size:13px">Icons photo nahi hai, ye Font Awesome icons hai. Bas apna page ka link paste karo, icon apne aap aa jayega. Example: <b>https://facebook.com/tumhara-page</b></div>
+      <div class="section-title">4. Header Social Icons </div>
       <div class="row">
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-twitter me-1"></i> Twitter Link (Header)</label><input type="text" name="twitter" value="{{ $settings->twitter ?? '' }}" class="form-control" placeholder="https://twitter.com/..."></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-facebook-f me-1"></i> Facebook Link (Header)</label><input type="text" name="facebook" value="{{ $settings->facebook ?? '' }}" class="form-control" placeholder="https://facebook.com/..."></div>
@@ -115,24 +114,24 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       </div>
 
       {{-- 5. FOOTER --}}
-      <div class="section-title">5. Footer - Logo, About, Quick Link, Icons, Contact, Copyright - SAB KUCH</div>
+      <div class="section-title">5. Footer - Logo, About, Quick Link, Icons, Contact, Copyright </div>
       <div class="row">
         <div class="col-md-12 mb-3">
           <label class="fw-bold mb-1">Footer Logo - Upload</label>
-          <div class="logo-box dark mb-2"><img src="{{ asset($settings->logo3 ?? $settings->logo ?? 'images/logo1.jpeg') }}" onerror="this.src='{{ asset('images/logo1.jpeg') }}'"><div style="font-size:12px;color:#fff" class="mt-1">Current Footer Logo - Agar khali chhoda to Header wala hi dikhega</div></div>
+          <div class="logo-box dark mb-2"><img src="{{ asset($settings->logo3 ?? $settings->logo ?? 'images/logo1.jpeg') }}" onerror="this.src='{{ asset('images/logo1.jpeg') }}'"><div style="font-size:12px;color:#fff" class="mt-1">Current Footer Logo </div></div>
           <input type="file" name="logo3" class="form-control" accept="image/*" onchange="previewLogo(this,'preview3')">
           <img id="preview3" style="height:60px;margin-top:8px;display:none;border:1px solid #FDECF3;border-radius:8px;padding:4px;background:#2D3436">
           <small class="text-muted">JPG / PNG - Best size: 220 x 70</small>
         </div>
-        <div class="col-md-12 mb-3"><label class="fw-bold mb-1">Footer About - Left Side (Logo ke neeche)</label><textarea name="footer_about" rows="3" class="form-control">{{ $settings->footer_about ?? 'Complete, safe and caring treatment for mother and child — from pregnancy to delivery and childhood, all under one roof.' }}</textarea></div>
+        <div class="col-md-12 mb-3"><label class="fw-bold mb-1">Footer About - Left Side </label><textarea name="footer_about" rows="3" class="form-control">{{ $settings->footer_about ?? 'Complete, safe and caring treatment for mother and child — from pregnancy to delivery and childhood, all under one roof.' }}</textarea></div>
 
-        <div class="col-md-12"><div class="sub-title">Footer Social Icons - Footer me jo 4 icons hai</div></div>
+        <div class="col-md-12"><div class="sub-title">Footer Social Icons </div></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-twitter me-1"></i> Twitter Link (Footer)</label><input type="text" name="footer_twitter" value="{{ $settings->footer_twitter ?? $settings->twitter ?? '' }}" class="form-control" placeholder="https://twitter.com/..."></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-facebook-f me-1"></i> Facebook Link (Footer)</label><input type="text" name="footer_facebook" value="{{ $settings->footer_facebook ?? $settings->facebook ?? '' }}" class="form-control" placeholder="https://facebook.com/..."></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-pinterest me-1"></i> Pinterest Link (Footer)</label><input type="text" name="pinterest" value="{{ $settings->pinterest ?? '' }}" class="form-control" placeholder="https://pinterest.com/..."></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1"><i class="fa-brands fa-instagram me-1"></i> Instagram Link (Footer)</label><input type="text" name="instagram" value="{{ $settings->instagram ?? '' }}" class="form-control" placeholder="https://instagram.com/..."></div>
 
-        <div class="col-md-12"><div class="sub-title">Footer Quick Links - Footer me jo 6 links hai (Naam + Link dono badal sakte ho)</div></div>
+        <div class="col-md-12"><div class="sub-title">Footer Quick Links </div></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Quick Link 1 - Naam</label><input type="text" name="quick_link1_title" value="{{ $settings->quick_link1_title ?? 'Pregnancy Care' }}" class="form-control"></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Quick Link 1 - Link (URL)</label><input type="text" name="quick_link1_url" value="{{ $settings->quick_link1_url ?? '/pregnancy-care' }}" class="form-control" placeholder="/pregnancy-care"></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Quick Link 2 - Naam</label><input type="text" name="quick_link2_title" value="{{ $settings->quick_link2_title ?? 'Safe Delivery' }}" class="form-control"></div>
@@ -146,7 +145,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Quick Link 6 - Naam</label><input type="text" name="quick_link6_title" value="{{ $settings->quick_link6_title ?? 'Newborn Care' }}" class="form-control"></div>
         <div class="col-md-6 mb-3"><label class="fw-bold mb-1">Quick Link 6 - Link (URL)</label><input type="text" name="quick_link6_url" value="{{ $settings->quick_link6_url ?? '/newborn-care' }}" class="form-control" placeholder="/newborn-care"></div>
 
-        <div class="col-md-12"><div class="sub-title">Footer Contact Box - Email, Address, Phone (Footer me jo dikhta hai)</div></div>
+        <div class="col-md-12"><div class="sub-title">Footer Contact Box - Email, Address, Phone</div></div>
         <div class="col-md-12 mb-3"><label class="fw-bold mb-1">Footer Contact Short Text</label><input type="text" name="footer_contact_text" value="{{ $settings->footer_contact_text ?? 'Visit us for mother and child care, or call us to book your appointment today.' }}" class="form-control"></div>
         <div class="col-md-12 mb-3"><label class="fw-bold mb-1">Footer Email</label><input type="text" name="footer_email" value="{{ $settings->footer_email ?? $settings->email ?? 'info@womenandchildcare.com' }}" class="form-control" placeholder="info@womenandchildcare.com"></div>
         <div class="col-md-12 mb-3"><label class="fw-bold mb-1">Footer Address</label><input type="text" name="footer_address" value="{{ $settings->footer_address ?? $settings->address ?? 'H.No-211, Sector-31, Gurgaon, Haryana India' }}" class="form-control" placeholder="H.No-211, Sector-31, Gurgaon..."></div>

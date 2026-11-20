@@ -28,6 +28,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 .btn-pink{background:var(--pink);color:#fff;border:0;padding:11px 25px;border-radius:10px;font-weight:600;font-size:14px}
 .btn-pink:hover{background:var(--pink-dark);color:#fff}
 .dropdown-sub{border-left:3px solid var(--pink-light);margin-left:14px;padding-left:6px}
+.section-title{background:#FFF5F8;border:1px solid #FDECF3;border-radius:12px;padding:12px 16px;font-weight:700;color:#D6307A;margin:22px 0 14px;}
 </style>
 </head>
 <body>
@@ -73,13 +74,72 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
   @endif
 
   <div class="card p-4">
-    <form method="POST" action="{{ route('admin.pages.update', $page->slug) }}">
+    <form method="POST" action="{{ route('admin.pages.update', $page->slug) }}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
+
+      {{-- ===== PAGE TITLE ===== --}}
       <div class="mb-3">
         <label class="fw-bold mb-1">Page Title</label>
         <input type="text" name="title" value="{{ $page->title }}" class="form-control" placeholder="e.g. About Us">
       </div>
+
+      {{-- ===== HERO SECTION - ONLY FOR HOME PAGE ===== --}}
+      @if($page->slug == 'home')
+      <div class="section-title">🏠 HERO SECTION - Home Page ka Banner</div>
+
+      <div class="mb-3">
+        <label class="fw-bold mb-1">Hero - Trusted Text <small class="text-muted">(Upar wala chota text)</small></label>
+        <input type="text" name="hero_trusted" value="{{ $page->hero_trusted ?? 'Trusted by 50,000+ patients' }}" class="form-control" placeholder="Trusted by 50,000+ patients">
+      </div>
+
+      <div class="mb-3">
+        <label class="fw-bold mb-1">Hero - Bada Heading</label>
+        <input type="text" name="hero_title" value="{{ $page->hero_title ?? $page->title }}" class="form-control" placeholder="Care for Every Woman Care for Every Child">
+      </div>
+
+      <div class="mb-3">
+        <label class="fw-bold mb-1">Hero - Chota Text</label>
+        <textarea name="hero_text" rows="3" class="form-control" placeholder="From pregnancy to motherhood...">{{ $page->hero_text ?? $page->content }}</textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="fw-bold mb-1">Hero - Banner Image</label>
+        @if($page->hero_image)
+          <div class="mb-2"><img src="{{ asset($page->hero_image) }}" style="height:90px;border-radius:10px;border:1px solid #FDECF3;"></div>
+        @endif
+        <input type="file" name="hero_image" class="form-control" accept="image/*">
+        <small class="text-muted">Khali chhodo to purani image hi rahegi.</small>
+      </div>
+
+      <div class="section-title">📞 HERO - Neeche wala Feature Box</div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="fw-bold mb-1">Phone</label>
+          <input type="text" name="hero_phone" value="{{ $page->hero_phone ?? '+91-90 15 59 8903' }}" class="form-control">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="fw-bold mb-1">Timing Line 1</label>
+          <input type="text" name="hero_timing" value="{{ $page->hero_timing ?? 'Mon - Fri: 8:00AM - 7:00PM' }}" class="form-control">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="fw-bold mb-1">Timing Line 2</label>
+          <input type="text" name="hero_timing2" value="{{ $page->hero_timing2 ?? 'Sat - Sun: Closed' }}" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold mb-1">Address Line 1</label>
+          <input type="text" name="hero_address" value="{{ $page->hero_address ?? 'Location-: H.No-211,' }}" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bold mb-1">Address Line 2</label>
+          <input type="text" name="hero_address2" value="{{ $page->hero_address2 ?? 'Sector-31, Gurgaon, Haryana India' }}" class="form-control">
+        </div>
+      </div>
+      @endif
+
+      {{-- ===== NORMAL CONTENT - SABHI PAGES KE LIYE ===== --}}
+      <div class="section-title">📝 Page Content</div>
 
       <div class="mb-3">
         <label class="fw-bold mb-1">Main Content</label>
@@ -91,13 +151,177 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
         <textarea name="content2" rows="5" class="form-control" placeholder="Write extra text here...">{{ $page->content2 }}</textarea>
       </div>
 
+
+
+      <h3>About Section</h3>
+<input type="text" name="about_subtitle" value="{{ $page->about_subtitle }}" placeholder="About Sub Title" class="form-control mb-2">
+<input type="text" name="about_title" value="{{ $page->about_title }}" placeholder="About Title" class="form-control mb-2">
+<textarea name="about_text" class="form-control mb-2" placeholder="About Text">{{ $page->about_text }}</textarea>
+<input type="text" name="about_feature1" value="{{ $page->about_feature1 }}" placeholder="Feature 1" class="form-control mb-2">
+<input type="text" name="about_feature2" value="{{ $page->about_feature2 }}" placeholder="Feature 2" class="form-control mb-2">
+<input type="text" name="about_point1" value="{{ $page->about_point1 }}" placeholder="Point 1" class="form-control mb-2">
+<input type="text" name="about_point2" value="{{ $page->about_point2 }}" placeholder="Point 2" class="form-control mb-2">
+<input type="text" name="about_point3" value="{{ $page->about_point3 }}" placeholder="Point 3" class="form-control mb-2">
+<label>About Image 1</label><input type="file" name="about_image1" class="form-control mb-2">
+<label>About Image 2</label><input type="file" name="about_image2" class="form-control mb-2">
+
+<h3>Services Section</h3>
+<input type="text" name="services_subtitle" value="{{ $page->services_subtitle }}" placeholder="Services Sub Title" class="form-control mb-2">
+<input type="text" name="services_title" value="{{ $page->services_title }}" placeholder="Services Title" class="form-control mb-2">
+@for($i=1; $i<=8; $i++)
+  <input type="text" name="service{{$i}}_title" value="{{ $page->{'service'.$i.'_title'} }}" placeholder="Service {{$i}} Title" class="form-control mb-1">
+  <textarea name="service{{$i}}_text" class="form-control mb-2" placeholder="Service {{$i}} Text">{{ $page->{'service'.$i.'_text'} }}</textarea>
+@endfor
+
+
+
+
+<h3>Why Choose Us Section</h3>
+<input type="text" name="wcu_subtitle" value="{{ $page->wcu_subtitle }}" placeholder="Why Choose Us Sub Title" class="form-control mb-2">
+<input type="text" name="wcu_title" value="{{ $page->wcu_title }}" placeholder="Why Choose Us Title" class="form-control mb-2">
+<textarea name="wcu_text" class="form-control mb-2" placeholder="Why Choose Us Text">{{ $page->wcu_text }}</textarea>
+@for($i=1; $i<=3; $i++)
+  <input type="text" name="wcu_acc{{$i}}_title" value="{{ $page->{'wcu_acc'.$i.'_title'} }}" placeholder="Accordion {{$i}} Title" class="form-control mb-1">
+  <textarea name="wcu_acc{{$i}}_text" class="form-control mb-2" placeholder="Accordion {{$i}} Text">{{ $page->{'wcu_acc'.$i.'_text'} }}</textarea>
+@endfor
+<input type="text" name="wcu_info_title" value="{{ $page->wcu_info_title }}" placeholder="Info Box Title" class="form-control mb-2">
+@for($i=1; $i<=6; $i++)
+  <input type="text" name="wcu_list{{$i}}" value="{{ $page->{'wcu_list'.$i} }}" placeholder="List {{$i}}" class="form-control mb-1">
+@endfor
+<label>Why Choose Us Image</label><input type="file" name="wcu_image" class="form-control mb-2">
+
+
+
+<h3>Funfact / Counter Section</h3>
+@for($i=1; $i<=4; $i++)
+  <div class="row">
+    <div class="col-md-3"><input type="text" name="funfact{{$i}}_number" value="{{ $page->{'funfact'.$i.'_number'} }}" placeholder="Counter {{$i}} Number - jaise 10" class="form-control mb-1"></div>
+    <div class="col-md-3"><input type="text" name="funfact{{$i}}_suffix" value="{{ $page->{'funfact'.$i.'_suffix'} }}" placeholder="Suffix - jaise + / K / M" class="form-control mb-1"></div>
+    <div class="col-md-6"><input type="text" name="funfact{{$i}}_text" value="{{ $page->{'funfact'.$i.'_text'} }}" placeholder="Counter {{$i}} Text" class="form-control mb-1"></div>
+  </div>
+@endfor
+
+
+
+
+<h3>Working / Achievements Section</h3>
+<input type="text" name="working_subtitle" value="{{ $page->working_subtitle }}" placeholder="Subtitle - jaise Our Achievements" class="form-control mb-1">
+<input type="text" name="working_title" value="{{ $page->working_title }}" placeholder="Title - jaise Trusted Care For Mother & Child" class="form-control mb-1">
+<textarea name="working_text1" placeholder="Text 1" class="form-control mb-1">{{ $page->working_text1 }}</textarea>
+<textarea name="working_text2" placeholder="Text 2" class="form-control mb-1">{{ $page->working_text2 }}</textarea>
+<input type="text" name="working_btn_text" value="{{ $page->working_btn_text }}" placeholder="Button Text - jaise Book a consultation" class="form-control mb-1">
+<input type="text" name="working_success_title" value="{{ $page->working_success_title }}" placeholder="Success Title - jaise Our Care Success Rate" class="form-control mb-1">
+<label>Background Image</label>
+<input type="file" name="working_image" class="form-control mb-1">
+@for($i=1; $i<=4; $i++)
+  <div class="row">
+    <div class="col-md-8"><input type="text" name="working_bar{{$i}}_title" value="{{ $page->{'working_bar'.$i.'_title'} }}" placeholder="Bar {{$i}} Title - jaise Antenatal Care" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="text" name="working_bar{{$i}}_percent" value="{{ $page->{'working_bar'.$i.'_percent'} }}" placeholder="Percent - sirf number jaise 98" class="form-control mb-1"></div>
+  </div>
+@endfor
+
+
+<h3>Testimonial Section</h3>
+<input type="text" name="testi_subtitle" value="{{ $page->testi_subtitle }}" placeholder="Subtitle - jaise Testimonial" class="form-control mb-1">
+<input type="text" name="testi_title" value="{{ $page->testi_title }}" placeholder="Title - jaise Real stories from happy mothers" class="form-control mb-1">
+<div class="row">
+  <div class="col-md-4"><input type="text" name="testi_rating" value="{{ $page->testi_rating }}" placeholder="Rating - jaise 4.8" class="form-control mb-1"></div>
+  <div class="col-md-8"><input type="text" name="testi_rating_text" value="{{ $page->testi_rating_text }}" placeholder="Rating Text - jaise From 3k Members, Reviewed by Google" class="form-control mb-1"></div>
+</div>
+<label>Right Side Badi Image</label>
+<input type="file" name="testi_side_image" class="form-control mb-2">
+@for($i=1; $i<=3; $i++)
+  <h5>Review {{$i}}</h5>
+  <textarea name="testi{{$i}}_text" placeholder="Review {{$i}} Text" class="form-control mb-1">{{ $page->{'testi'.$i.'_text'} }}</textarea>
+  <div class="row">
+    <div class="col-md-4"><input type="text" name="testi{{$i}}_name" value="{{ $page->{'testi'.$i.'_name'} }}" placeholder="Name - jaise Priya Sharma" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="text" name="testi{{$i}}_role" value="{{ $page->{'testi'.$i.'_role'} }}" placeholder="Role - jaise New Mother" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="file" name="testi{{$i}}_image" class="form-control mb-1"></div>
+  </div>
+@endfor
+
+
+<h3>Team Section</h3>
+<input type="text" name="team_subtitle" value="{{ $page->team_subtitle }}" placeholder="Subtitle - jaise Team" class="form-control mb-1">
+<input type="text" name="team_title" value="{{ $page->team_title }}" placeholder="Title - jaise The team caring for mother & child" class="form-control mb-1">
+@for($i=1; $i<=3; $i++)
+  <h5>Doctor {{$i}}</h5>
+  <div class="row">
+    <div class="col-md-4"><input type="text" name="team{{$i}}_name" value="{{ $page->{'team'.$i.'_name'} }}" placeholder="Name - jaise Dr. Devendra Agarwal" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="text" name="team{{$i}}_role" value="{{ $page->{'team'.$i.'_role'} }}" placeholder="Role - jaise MBBS, MD - Pediatrics" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="file" name="team{{$i}}_image" class="form-control mb-1"></div>
+  </div>
+@endfor
+
+
+<h3>Contact / Appointment Section</h3>
+<input type="text" name="contact_left_title" value="{{ $page->contact_left_title }}" placeholder="Left Title - jaise Mother & Child Questions Answered." class="form-control mb-1">
+<input type="text" name="contact_email_label" value="{{ $page->contact_email_label }}" placeholder="Email Label - jaise Drop Us Email" class="form-control mb-1">
+<input type="text" name="contact_email" value="{{ $page->contact_email }}" placeholder="Email - jaise info@womenandchildcare.com" class="form-control mb-1">
+<input type="text" name="contact_subtitle" value="{{ $page->contact_subtitle }}" placeholder="Subtitle - jaise Contact us" class="form-control mb-1">
+<input type="text" name="contact_title" value="{{ $page->contact_title }}" placeholder="Title - jaise Book appointment today!" class="form-control mb-1">
+<input type="text" name="contact_btn_text" value="{{ $page->contact_btn_text }}" placeholder="Button Text - jaise Book Appointment" class="form-control mb-1">
+<label>Left Side Image</label>
+<input type="file" name="contact_left_image" class="form-control mb-1">
+<label>Right Side Background Image</label>
+<input type="file" name="contact_bg_image" class="form-control mb-1">
+
+
+<h3>Blog Section</h3>
+<input type="text" name="blog_subtitle" value="{{ $page->blog_subtitle }}" placeholder="Subtitle - jaise Our Blog" class="form-control mb-1">
+<input type="text" name="blog_title" value="{{ $page->blog_title }}" placeholder="Title - jaise Checkout latest news update & articles" class="form-control mb-1">
+@for($i=1; $i<=3; $i++)
+  <h5>Blog {{$i}}</h5>
+  <div class="row">
+    <div class="col-md-2"><input type="text" name="blog{{$i}}_date" value="{{ $page->{'blog'.$i.'_date'} }}" placeholder="Date - jaise 06" class="form-control mb-1"></div>
+    <div class="col-md-4"><input type="text" name="blog{{$i}}_title" value="{{ $page->{'blog'.$i.'_title'} }}" placeholder="Title" class="form-control mb-1"></div>
+    <div class="col-md-4"><textarea name="blog{{$i}}_excerpt" placeholder="Short Description" class="form-control mb-1">{{ $page->{'blog'.$i.'_excerpt'} }}</textarea></div>
+    <div class="col-md-2"><input type="file" name="blog{{$i}}_image" class="form-control mb-1"></div>
+  </div>
+@endfor
+
+<h3>CTA / Footer Top Section</h3>
+<div class="row">
+  <div class="col-md-4">
+    <h5>Box 1 - Address</h5>
+    <input type="text" name="cta1_title" value="{{ $page->cta1_title }}" placeholder="Title - jaise Address" class="form-control mb-1">
+    <textarea name="cta1_text" placeholder="Address - 2 line ke liye Enter dabao" class="form-control mb-1">{{ $page->cta1_text }}</textarea>
+  </div>
+  <div class="col-md-4">
+    <h5>Box 2 - Timing</h5>
+    <input type="text" name="cta2_title" value="{{ $page->cta2_title }}" placeholder="Title - jaise Available Hour" class="form-control mb-1">
+    <input type="text" name="cta2_text1" value="{{ $page->cta2_text1 }}" placeholder="Line 1 - jaise Fri - The: 10:00- 24:00" class="form-control mb-1">
+    <input type="text" name="cta2_text2" value="{{ $page->cta2_text2 }}" placeholder="Line 2 - jaise Sat - Mon: 01:00- 12:00" class="form-control mb-1">
+  </div>
+  <div class="col-md-4">
+    <h5>Box 3 - Contact</h5>
+    <input type="text" name="cta3_title" value="{{ $page->cta3_title }}" placeholder="Title - jaise Contact Us" class="form-control mb-1">
+    <input type="text" name="cta3_text1" value="{{ $page->cta3_text1 }}" placeholder="Email" class="form-control mb-1">
+    <input type="text" name="cta3_text2" value="{{ $page->cta3_text2 }}" placeholder="Phone" class="form-control mb-1">
+  </div>
+</div>
+<label>CTA Background Image</label>
+<input type="file" name="cta_bg_image" class="form-control mb-1">
+
       <button type="submit" class="btn-pink"><i class="fa-solid fa-floppy-disk me-2"></i> Save Page</button>
       <a href="/" target="_blank" class="btn btn-light ms-2" style="border-radius:10px;border:1px solid #FDECF3">View Website</a>
     </form>
   </div>
+
+
+
+
+
+  
 </div>
 
+
+
+
+
+
 </div></div>
+
 <script>
 function togglePages(btn){
   let drop = document.getElementById('pagesDropdown');
