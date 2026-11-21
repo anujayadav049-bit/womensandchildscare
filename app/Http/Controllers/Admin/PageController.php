@@ -19,6 +19,8 @@ class PageController extends Controller
         $data = $request->only([
             'title','content','content2',
             'hero_trusted','hero_title','hero_text','hero_phone','hero_timing','hero_timing2','hero_address','hero_address2',
+            // About Banner - NAYA ADDED - Isi ki wajah se About change nahi ho raha tha
+            'about_banner_title','about_banner_breadcrumb',
             'about_subtitle','about_title','about_text','about_feature1','about_feature2','about_point1','about_point2','about_point3',
             'services_subtitle','services_title',
             'service1_title','service1_text','service2_title','service2_text','service3_title','service3_text','service4_title','service4_text',
@@ -34,38 +36,39 @@ class PageController extends Controller
             'funfact4_number','funfact4_suffix','funfact4_text',
 
             // Working / Achievements - NAYA
-'working_subtitle','working_title','working_text1','working_text2','working_btn_text','working_success_title',
-'working_bar1_title','working_bar1_percent','working_bar2_title','working_bar2_percent',
-'working_bar3_title','working_bar3_percent','working_bar4_title','working_bar4_percent',
+            'working_subtitle','working_title','working_text1','working_text2','working_btn_text','working_success_title',
+            'working_bar1_title','working_bar1_percent','working_bar2_title','working_bar2_percent',
+            'working_bar3_title','working_bar3_percent','working_bar4_title','working_bar4_percent',
 
-// Testimonial - NAYA
-'testi_subtitle','testi_title','testi_rating','testi_rating_text',
-'testi1_text','testi1_name','testi1_role',
-'testi2_text','testi2_name','testi2_role',
-'testi3_text','testi3_name','testi3_role',
+            // Testimonial - NAYA
+            'testi_subtitle','testi_title','testi_rating','testi_rating_text',
+            'testi1_text','testi1_name','testi1_role',
+            'testi2_text','testi2_name','testi2_role',
+            'testi3_text','testi3_name','testi3_role',
 
-// Team - NAYA
-'team_subtitle','team_title',
-'team1_name','team1_role',
-'team2_name','team2_role',
-'team3_name','team3_role',
+            // Team - NAYA
+            'team_subtitle','team_title',
+            'team1_name','team1_role',
+            'team2_name','team2_role',
+            'team3_name','team3_role',
 
-// Contact - NAYA
-'contact_left_title','contact_email_label','contact_email','contact_subtitle','contact_title','contact_btn_text',
+            // Contact - NAYA
+            'contact_left_title','contact_email_label','contact_email','contact_subtitle','contact_title','contact_btn_text',
 
-// Blog - NAYA
-'blog_subtitle','blog_title',
-'blog1_date','blog1_title','blog1_excerpt',
-'blog2_date','blog2_title','blog2_excerpt',
-'blog3_date','blog3_title','blog3_excerpt',
+            // Blog - NAYA
+            'blog_subtitle','blog_title',
+            'blog1_date','blog1_title','blog1_excerpt',
+            'blog2_date','blog2_title','blog2_excerpt',
+            'blog3_date','blog3_title','blog3_excerpt',
 
-// CTA - NAYA
-'cta1_title','cta1_text','cta2_title','cta2_text1','cta2_text2','cta3_title','cta3_text1','cta3_text2',
+            // CTA - NAYA
+            'cta1_title','cta1_text','cta2_title','cta2_text1','cta2_text2','cta3_title','cta3_text1','cta3_text2',
+
+            'doctor_banner_title','doctor_banner_breadcrumb',
+            'contact_banner_title','contact_banner_breadcrumb',
+'contact_email','contact_phone','contact_address','contact_timing','contact_map_embed',
+'contact_title','contact_subtitle','contact_btn_text',
         ]);
-
-
-
-
 
         // Hero Image - purana wala
         if ($request->hasFile('hero_image')) {
@@ -75,6 +78,16 @@ class PageController extends Controller
             if (!is_dir($destination)) mkdir($destination, 0777, true);
             copy($file->getRealPath(), $destination.'/'.$name);
             $data['hero_image'] = 'images/banner/'.$name;
+        }
+
+        // About Banner Image - NAYA ADDED
+        if ($request->hasFile('about_banner_image')) {
+            $file = $request->file('about_banner_image');
+            $name = 'about-banner-'.time().'.'.$file->getClientOriginalExtension();
+            $destination = public_path('images/resource');
+            if (!is_dir($destination)) mkdir($destination, 0777, true);
+            copy($file->getRealPath(), $destination.'/'.$name);
+            $data['about_banner_image'] = 'images/resource/'.$name;
         }
 
         // About Images
@@ -100,78 +113,92 @@ class PageController extends Controller
         }
 
         // Working Image - NAYA
-if ($request->hasFile('working_image')) {
-    $file = $request->file('working_image');
-    $name = 'working-'.time().'.'.$file->getClientOriginalExtension();
+        if ($request->hasFile('working_image')) {
+            $file = $request->file('working_image');
+            $name = 'working-'.time().'.'.$file->getClientOriginalExtension();
+            $destination = public_path('images/resource');
+            if (!is_dir($destination)) mkdir($destination, 0777, true);
+            copy($file->getRealPath(), $destination.'/'.$name);
+            $data['working_image'] = 'images/resource/'.$name;
+        }
+
+        // Testimonial Images - NAYA
+        foreach(['testi_side_image','testi1_image','testi2_image','testi3_image'] as $field){
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
+                $destination = public_path('images/resource');
+                if (!is_dir($destination)) mkdir($destination, 0777, true);
+                copy($file->getRealPath(), $destination.'/'.$name);
+                $data[$field] = 'images/resource/'.$name;
+            }
+        }
+
+        // Team Images - NAYA
+        foreach(['team1_image','team2_image','team3_image'] as $field){
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
+                $destination = public_path('images/resource');
+                if (!is_dir($destination)) mkdir($destination, 0777, true);
+                copy($file->getRealPath(), $destination.'/'.$name);
+                $data[$field] = 'images/resource/'.$name;
+            }
+        }
+
+        // Contact Images - NAYA
+        foreach(['contact_left_image','contact_bg_image'] as $field){
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
+                $destination = public_path('images/resource');
+                if (!is_dir($destination)) mkdir($destination, 0777, true);
+                copy($file->getRealPath(), $destination.'/'.$name);
+                $data[$field] = 'images/resource/'.$name;
+            }
+        }
+
+        // Blog Images - NAYA
+        foreach(['blog1_image','blog2_image','blog3_image'] as $field){
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
+                $destination = public_path('images/resource');
+                if (!is_dir($destination)) mkdir($destination, 0777, true);
+                copy($file->getRealPath(), $destination.'/'.$name);
+                $data[$field] = 'images/resource/'.$name;
+            }
+        }
+
+        // CTA Image - NAYA
+        if ($request->hasFile('cta_bg_image')) {
+            $file = $request->file('cta_bg_image');
+            $name = 'cta_bg_image-'.time().'.'.$file->getClientOriginalExtension();
+            $destination = public_path('images/background');
+            if (!is_dir($destination)) mkdir($destination, 0777, true);
+            copy($file->getRealPath(), $destination.'/'.$name);
+            $data['cta_bg_image'] = 'images/background/'.$name;
+        }
+
+
+        // Doctor Banner Image
+if ($request->hasFile('doctor_banner_image')) {
+    $file = $request->file('doctor_banner_image');
+    $name = 'doctor-banner-'.time().'.'.$file->getClientOriginalExtension();
     $destination = public_path('images/resource');
     if (!is_dir($destination)) mkdir($destination, 0777, true);
     copy($file->getRealPath(), $destination.'/'.$name);
-    $data['working_image'] = 'images/resource/'.$name;
+    $data['doctor_banner_image'] = 'images/resource/'.$name;
 }
 
-
-// Testimonial Images - NAYA
-foreach(['testi_side_image','testi1_image','testi2_image','testi3_image'] as $field){
-    if ($request->hasFile($field)) {
-        $file = $request->file($field);
-        $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
-        $destination = public_path('images/resource');
-        if (!is_dir($destination)) mkdir($destination, 0777, true);
-        copy($file->getRealPath(), $destination.'/'.$name);
-        $data[$field] = 'images/resource/'.$name;
-    }
-}
-
-
-// Team Images - NAYA
-foreach(['team1_image','team2_image','team3_image'] as $field){
-    if ($request->hasFile($field)) {
-        $file = $request->file($field);
-        $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
-        $destination = public_path('images/resource');
-        if (!is_dir($destination)) mkdir($destination, 0777, true);
-        copy($file->getRealPath(), $destination.'/'.$name);
-        $data[$field] = 'images/resource/'.$name;
-    }
-}
-
-
-// Contact Images - NAYA
-foreach(['contact_left_image','contact_bg_image'] as $field){
-    if ($request->hasFile($field)) {
-        $file = $request->file($field);
-        $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
-        $destination = public_path('images/resource');
-        if (!is_dir($destination)) mkdir($destination, 0777, true);
-        copy($file->getRealPath(), $destination.'/'.$name);
-        $data[$field] = 'images/resource/'.$name;
-    }
-}
-
-
-// Blog Images - NAYA
-foreach(['blog1_image','blog2_image','blog3_image'] as $field){
-    if ($request->hasFile($field)) {
-        $file = $request->file($field);
-        $name = $field.'-'.time().'.'.$file->getClientOriginalExtension();
-        $destination = public_path('images/resource');
-        if (!is_dir($destination)) mkdir($destination, 0777, true);
-        copy($file->getRealPath(), $destination.'/'.$name);
-        $data[$field] = 'images/resource/'.$name;
-    }
-}
-
-
-// CTA Image - NAYA
-if ($request->hasFile('cta_bg_image')) {
-    $file = $request->file('cta_bg_image');
-    $name = 'cta_bg_image-'.time().'.'.$file->getClientOriginalExtension();
-    $destination = public_path('images/background');
+if ($request->hasFile('contact_banner_image')) {
+    $file = $request->file('contact_banner_image');
+    $name = 'contact-banner-'.time().'.'.$file->getClientOriginalExtension();
+    $destination = public_path('images/resource');
     if (!is_dir($destination)) mkdir($destination, 0777, true);
     copy($file->getRealPath(), $destination.'/'.$name);
-    $data['cta_bg_image'] = 'images/background/'.$name;
+    $data['contact_banner_image'] = 'images/resource/'.$name;
 }
-
 
         $page->update($data);
         return back()->with('success', 'Page Updated!');

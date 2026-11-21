@@ -89,7 +89,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
     <a href="/admin/pages/home" class="nav-link"><i class="fa-solid fa-house"></i> Home Page</a>
     <a href="/admin/pages/about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Page</a>
     <a href="/admin/pages/doctor" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Page</a>
-    <a href="/admin/pages/services" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Services Page</a>
+    <a href="/admin/pages/devendra-agarwal" class="nav-link"><i class="fa-solid fa-stethoscope"></i> devendra-agarwal </a>
     <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact Page</a>
     <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
   </div>

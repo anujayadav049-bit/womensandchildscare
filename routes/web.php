@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\ContactMessage;
 use App\Models\Page;
+use App\Models\Doctor;
 use App\Http\Controllers\PageController;
 
 // --- Public Pages ---
@@ -12,20 +13,69 @@ Route::get('/', function () {
     return view('home', compact('page'));
 });
 
-Route::get('/about', function () { return view('about'); });
-Route::get('/doctor', function () { return view('doctor'); });
-Route::get('/contact', function () { return view('contact'); });
-Route::get('/appointment', function () { return view('appointment'); });
-Route::get('/doctor/anubha-gupta', function () { return view('anubha-gupta'); });
-Route::get('/doctor/devendra-agarwal', function () { return view('devendra-agarwal'); });
-Route::get('/child-growth', function () { return view('child-growth'); });
-Route::get('/child-vaccination', function () { return view('child-vaccination'); });
-Route::get('/general-pediatrics', function () { return view('general-pediatrics'); });
-Route::get('/high-risk-pregnancy', function () { return view('high-risk-pregnancy'); });
-Route::get('/newborn-care', function () { return view('newborn-care'); });
-Route::get('/normal-delivery', function () { return view('normal-delivery'); });
-Route::get('/womens-health', function () { return view('womens-health'); });
-Route::get('/pregnancy-care', function () { return view('pregnancy-care'); });
+Route::get('/about', function () {
+    $page = Page::where('slug', 'about')->first();
+    return view('about', compact('page'));
+});
+Route::get('/doctor', function () {
+    $page = Page::where('slug', 'doctor')->first();
+    return view('doctor', compact('page'));
+});
+
+// Doctor Details - Naam same, 3 alag route
+Route::get('/doctor/devendra-agarwal', function () {
+    $doctor = Doctor::where('slug', 'devendra-agarwal')->firstOrFail();
+    return view('devendra-agarwal', compact('doctor'));
+});
+Route::get('/doctor/anubha-gupta', function () {
+    $doctor = Doctor::where('slug', 'anubha-gupta')->firstOrFail();
+    return view('anubha-gupta', compact('doctor'));
+});
+Route::get('/doctor/anjali-gupta', function () {
+    $doctor = Doctor::where('slug', 'anjali-gupta')->firstOrFail();
+    return view('anjali-gupta', compact('doctor'));
+});
+
+Route::get('/contact', function () {
+    $page = Page::where('slug', 'contact')->first();
+    return view('contact', compact('page'));
+});
+Route::get('/appointment', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('appointment', compact('page'));
+});
+Route::get('/child-growth', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('child-growth', compact('page'));
+});
+Route::get('/child-vaccination', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('child-vaccination', compact('page'));
+});
+Route::get('/general-pediatrics', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('general-pediatrics', compact('page'));
+});
+Route::get('/high-risk-pregnancy', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('high-risk-pregnancy', compact('page'));
+});
+Route::get('/newborn-care', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('newborn-care', compact('page'));
+});
+Route::get('/normal-delivery', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('normal-delivery', compact('page'));
+});
+Route::get('/womens-health', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('womens-health', compact('page'));
+});
+Route::get('/pregnancy-care', function () {
+    $page = Page::where('slug', 'home')->first();
+    return view('pregnancy-care', compact('page'));
+});
 
 // --- Forms Save ---
 Route::post('/contact', function (Request $request) {
@@ -83,3 +133,4 @@ Route::post('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController
 // Admin Pages - SIRF YE WALA, neeche wala duplicate hata diya hai
 Route::get('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'edit'])->name('admin.pages.edit');
 Route::match(['POST', 'PUT'], '/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'update'])->name('admin.pages.update');
+
