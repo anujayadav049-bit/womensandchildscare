@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\ContactMessage;
 use App\Models\Page;
-use App\Models\Doctor;
 use App\Http\Controllers\PageController;
 
 // --- Public Pages ---
@@ -22,18 +21,61 @@ Route::get('/doctor', function () {
     return view('doctor', compact('page'));
 });
 
-// Doctor Details - Naam same, 3 alag route
+// Doctor Details - 3 Doctors, 1 hi file doctor-detail.blade.php se chalegi
+// AB YE PAGE SE DYNAMIC HOGA - Doctor wali table ki zarurat nahi, koi nayi file nahi!
 Route::get('/doctor/devendra-agarwal', function () {
-    $doctor = Doctor::where('slug', 'devendra-agarwal')->firstOrFail();
-    return view('devendra-agarwal', compact('doctor'));
+    $page = Page::where('slug', 'doctor')->first();
+    $doctor = (object)[
+        'name' => $page->team1_name ?? $page->doctor_name,
+        'designation' => $page->team1_role ?? $page->doctor_designation,
+        'image' => $page->team1_image ?? $page->doctor_image,
+        'tag' => $page->doctor_tag,
+        'short_bio' => $page->doctor_short_bio,
+        'experience' => $page->doctor_experience,
+        'education' => $page->doctor_education,
+        'phone' => $page->doctor_phone,
+        'email' => $page->doctor_email,
+        'address' => $page->doctor_address,
+        'about' => $page->doctor_about,
+        'expertise' => $page->doctor_expertise,
+    ];
+    return view('doctor-detail', compact('doctor', 'page'));
 });
 Route::get('/doctor/anubha-gupta', function () {
-    $doctor = Doctor::where('slug', 'anubha-gupta')->firstOrFail();
-    return view('anubha-gupta', compact('doctor'));
+    $page = Page::where('slug', 'doctor')->first();
+    $doctor = (object)[
+        'name' => $page->team2_name,
+        'designation' => $page->team2_role,
+        'image' => $page->team2_image,
+        'tag' => $page->doctor_tag,
+        'short_bio' => $page->doctor_short_bio,
+        'experience' => $page->doctor_experience,
+        'education' => $page->doctor_education,
+        'phone' => $page->doctor_phone,
+        'email' => $page->doctor_email,
+        'address' => $page->doctor_address,
+        'about' => $page->doctor_about,
+        'expertise' => $page->doctor_expertise,
+    ];
+    return view('doctor-detail', compact('doctor', 'page'));
 });
 Route::get('/doctor/anjali-gupta', function () {
-    $doctor = Doctor::where('slug', 'anjali-gupta')->firstOrFail();
-    return view('anjali-gupta', compact('doctor'));
+    $page = Page::where('slug', 'doctor')->first();
+    $doctor = (object)[
+        'name' => $page->team3_name,
+        'designation' => $page->team3_role,
+        'image' => $page->team3_image,
+        'tag' => $page->doctor_tag,
+        'short_bio' => $page->doctor_short_bio,
+        'experience' => $page->doctor_experience,
+        'education' => $page->doctor_education,
+        'phone' => $page->doctor_phone,
+        'email' => $page->doctor_email,
+        'address' => $page->doctor_address,
+        'about' => $page->doctor_about,
+        'expertise' => $page->doctor_expertise,
+    ];
+    return view('doctor-detail', compact('doctor', 'page'));
 });
 
 Route::get('/contact', function () {
@@ -130,7 +172,8 @@ Route::get('/admin', function () {
 Route::get('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'edit'])->name('admin.settings.edit');
 Route::post('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('admin.settings.update');
 
-// Admin Pages - SIRF YE WALA, neeche wala duplicate hata diya hai
+// Admin Pages - SIRF YE WALA, neeche wala duplicate DELETE kar diya hai
 Route::get('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'edit'])->name('admin.pages.edit');
 Route::match(['POST', 'PUT'], '/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'update'])->name('admin.pages.update');
 
+// DoctorController wali line HATA DI HAI - ab koi nayi file nahi chahiye!

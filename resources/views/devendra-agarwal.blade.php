@@ -1,7 +1,23 @@
 @extends('layouts.app')
-@section('title', ($doctor->name ?? 'Doctor') . ' - Women & Childs Care')
+@section('title', (($page->doctor_name ?? $doctor->name ?? 'Doctor')) . ' - Women & Childs Care')
 @section('content')
-<section class="page-title" style="background-image: url({{ asset('images/resource/page-title.jpg') }});">
+@php
+  // Admin Page se aaya hai toh $page, warna purana $doctor - dono chalega
+  $dName = $page->doctor_name ?? $doctor->name ?? $page->team1_name ?? 'Doctor';
+  $dDesig = $page->doctor_designation ?? $doctor->designation ?? $page->team1_role ?? '';
+  $dTag = $page->doctor_tag ?? $doctor->tag ?? 'AVAILABLE - WOMEN & CHILD CARE, GURGAON';
+  $dBio = $page->doctor_short_bio ?? $doctor->short_bio ?? '';
+  $dExp = $page->doctor_experience ?? $doctor->experience ?? '-';
+  $dEdu = $page->doctor_education ?? $doctor->education ?? '-';
+  $dPhone = $page->doctor_phone ?? $doctor->phone ?? $page->contact_phone ?? '-';
+  $dEmail = $page->doctor_email ?? $doctor->email ?? $page->contact_email ?? '-';
+  $dAddr = $page->doctor_address ?? $doctor->address ?? $page->contact_address ?? '';
+  $dAbout = $page->doctor_about ?? $doctor->about ?? $page->content ?? '';
+  $dExpList = $page->doctor_expertise ?? $doctor->expertise ?? '';
+  $dImg = $page->doctor_image ?? $doctor->image ?? $page->team1_image ?? 'images/resource/team1-1.jpg';
+  $dBanner = $page->doctor_banner_image ?? 'images/resource/page-title.jpg';
+@endphp
+<section class="page-title" style="background-image: url({{ asset($dBanner) }});">
   <div class="auto-container"><div class="title-outer text-center"><div class="h1 title">Doctors Details</div>
     <ul class="page-breadcrumb"><li><a href="{{ url('/') }}">Home</a></li><li>Doctors Details</li></ul>
   </div></div>
@@ -36,26 +52,26 @@
   @media(max-width:768px){ .dr-card{flex-direction:column; padding:20px;} .dr-photo{width:100%; min-width:100%; height:380px;} .dr-meta{grid-template-columns:1fr;} .dr-bottom{grid-template-columns:1fr;} }
 </style>
 <section class="dr-profile"><div class="container"><div class="dr-card">
-  <div class="dr-photo"><img src="{{ asset($doctor->image ?? 'images/resource/team1-1.jpg') }}" alt="{{ $doctor->name }}"></div>
+  <div class="dr-photo"><img src="{{ asset($dImg) }}" alt="{{ $dName }}"></div>
   <div class="dr-info">
-    <span class="dr-tag">● {{ $doctor->tag ?? 'AVAILABLE - WOMEN & CHILD CARE, GURGAON' }}</span>
-    <h2>{{ $doctor->name }}</h2>
-    <h3>{{ $doctor->designation }}</h3>
-    <p class="sub">{{ $doctor->short_bio }}</p>
+    <span class="dr-tag">● {{ $dTag }}</span>
+    <h2>{{ $dName }}</h2>
+    <h3>{{ $dDesig }}</h3>
+    <p class="sub">{{ $dBio }}</p>
     <div class="dr-meta">
-      <div><small>Experience</small><b>{{ $doctor->experience }}</b></div>
-      <div><small>Education</small><b>{{ $doctor->education }}</b></div>
-      <div><small>Phone</small><b><a href="tel:{{ $doctor->phone }}">{{ $doctor->phone }}</a></b></div>
-      <div><small>Email</small><b><a href="mailto:{{ $doctor->email }}">{{ $doctor->email }}</a></b></div>
+      <div><small>Experience</small><b>{{ $dExp }}</b></div>
+      <div><small>Education</small><b>{{ $dEdu }}</b></div>
+      <div><small>Phone</small><b><a href="tel:{{ $dPhone }}">{{ $dPhone }}</a></b></div>
+      <div><small>Email</small><b><a href="mailto:{{ $dEmail }}">{{ $dEmail }}</a></b></div>
     </div>
     <div class="dr-btns"><a href="{{ url('/appointment') }}" class="book">Book Appointment →</a><a href="{{ url('/contact') }}" class="call">Visit Clinic</a></div>
-    <p style="margin:14px 0 0; color:#888; font-size:14px;">📍 {{ $doctor->address }}</p>
+    <p style="margin:14px 0 0; color:#888; font-size:14px;">📍 {{ $dAddr }}</p>
   </div>
 </div>
 <div class="dr-bottom">
-  <div class="dr-box"><h4>About {{ $doctor->name }}</h4>{!! nl2br(e($doctor->about)) !!}</div>
+  <div class="dr-box"><h4>About {{ $dName }}</h4>{!! nl2br(e($dAbout)) !!}</div>
   <div class="dr-box"><h4>Expertise & Specialities</h4><ul class="dr-list">
-    @foreach(explode("\n", $doctor->expertise ?? '') as $item)
+    @foreach(explode("\n", $dExpList ?? '') as $item)
       @if(trim($item))<li><span>✓</span> {{ trim($item) }}</li>@endif
     @endforeach
   </ul></div>

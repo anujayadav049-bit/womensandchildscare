@@ -16,18 +16,21 @@
 *{ -webkit-font-smoothing:antialiased; }
 body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-size:14px}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
-.sidebar{background:#fff;min-height:100vh;padding:28px 18px;position:sticky;top:0;border-right:1px solid #FDECF3}
-.sidebar .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;line-height:1.15;letter-spacing:-.3px}
+.sidebar{background:#fff;min-height:100vh;padding:22px 14px;position:sticky;top:0;border-right:1px solid #FDECF3}
+.sidebar .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;line-height:1.15;letter-spacing:-.3px;padding:0 6px}
 .sidebar .logo span{color:var(--pink)}
 .sidebar .logo small{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--muted)}
-.sidebar .menu-label{font-size:11px;font-weight:700;letter-spacing:1px;color:#B2BEC3;margin:18px 0 8px 10px}
-.sidebar .nav-link{color:#636E72;border-radius:12px;padding:12px 12px;margin-bottom:4px;font-weight:600;font-size:13.5px;cursor:pointer;border:0;background:transparent;width:100%;text-align:left;text-decoration:none;display:flex;align-items:center;gap:10px;transition:.2s}
-.sidebar .nav-link i{width:32px;height:32px;border-radius:9px;background:#FFF0F5;color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.sidebar .menu-label{font-size:10px;font-weight:700;letter-spacing:1.2px;color:#B2BEC3;margin:20px 0 6px 10px}
+.sidebar .nav-link{color:#636E72;border-radius:10px;padding:9px 10px;margin-bottom:2px;font-weight:500;font-size:13px;cursor:pointer;border:0;background:transparent;width:100%;text-align:left;text-decoration:none;display:flex;align-items:center;gap:9px;transition:.2s}
+.sidebar .nav-link i{width:28px;height:28px;border-radius:8px;background:#FFF0F5;color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .sidebar .nav-link:hover{background:var(--pink-soft);color:var(--pink-dark)}
 .sidebar .nav-link.active{background:var(--pink);color:#fff;box-shadow:0 8px 20px rgba(232,67,147,.35)}
 .sidebar .nav-link.active i{background:rgba(255,255,255,.25);color:#fff}
-.sidebar .count-badge{background:var(--pink-light);color:var(--pink-dark);font-size:11px;padding:4px 9px;border-radius:20px;font-weight:700;margin-left:auto}
+.sidebar .count-badge{background:var(--pink-light);color:var(--pink-dark);font-size:11px;padding:3px 8px;border-radius:20px;font-weight:700;margin-left:auto}
 .sidebar .nav-link.active .count-badge{background:#fff;color:var(--pink)}
+.sidebar .sub-link{padding:8px 10px 8px 46px !important;font-size:12.5px;color:#7A8690}
+.sidebar .sub-link i{width:22px;height:22px;font-size:11px}
+.sidebar .sub-link:hover{color:var(--pink-dark)}
 .topbar{background:#fff;border:1px solid #FDECF3;border-radius:16px;padding:16px 20px;box-shadow:0 2px 12px rgba(232,67,147,.05)}
 .topbar h4{font-size:20px;letter-spacing:-.3px}
 .stat-card{background:#fff;border:1px solid #FDECF3;border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.03);cursor:pointer;transition:.2s;position:relative;overflow:hidden}
@@ -69,39 +72,60 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 .page-card{background:#fff;border:1px solid #FDECF3;border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:.2s}
 .page-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(232,67,147,.10);color:var(--text)}
 .page-card i{width:44px;height:44px;border-radius:12px;background:var(--pink-light);color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.dropdown-sub{border-left:3px solid var(--pink-light);margin-left:14px;padding-left:6px}
+.dropdown-sub{margin-left:8px}
 </style>
 </head>
 <body>
 <div class="container-fluid"><div class="row">
 
-<!-- LEFT SIDEBAR -->
+<!-- LEFT SIDEBAR - SLIM & CLEAN -->
 <div class="col-md-2 sidebar">
-  <div class="logo">Women & <span>Child Care</span><br><small>GURUGRAM • ADMIN PANEL</small></div>
+  <div class="logo">Women & <span>Child Care</span><br></div>
+
   <div class="menu-label">MAIN MENU</div>
   <button onclick="showSection('dashboard',this)" class="nav-link active"><i class="fa-solid fa-border-all"></i> Dashboard</button>
   <button onclick="showSection('appointments',this)" class="nav-link"><i class="fa-solid fa-calendar-check"></i> Appointments <span class="count-badge">{{ $appointments->count() }}</span></button>
   <button onclick="showSection('messages',this)" class="nav-link"><i class="fa-solid fa-envelope"></i> Messages <span class="count-badge">{{ $messages->count() }}</span></button>
 
-  <div class="menu-label">WEBSITE</div>
-  <button onclick="togglePages(this)" class="nav-link" id="allPagesBtn"><i class="fa-solid fa-layer-group"></i> All Pages <span class="ms-auto" id="pagesArrow" style="font-size:11px;transition:.3s">▼</span></button>
-  <div id="pagesDropdown" class="dropdown-sub" style="display:none">
-    <a href="/admin/pages/home" class="nav-link"><i class="fa-solid fa-house"></i> Home Page</a>
-    <a href="/admin/pages/about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Page</a>
-    <a href="/admin/pages/doctor" class="nav-link"><i class="fa-solid fa-user-doctor"></i> Doctor Page</a>
-    <a href="/admin/pages/devendra-agarwal" class="nav-link"><i class="fa-solid fa-stethoscope"></i> devendra-agarwal </a>
-    <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact Page</a>
-    <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  {{-- WEBSITE PAGES - NO ALL PAGES DROPDOWN, --}}
+  <div class="menu-label">WEBSITE PAGES</div>
+  <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  <a href="/admin/pages/home" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="/admin/pages/about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+
+  {{-- DOCTOR WITH DROPDOWN --}}
+  <div>
+    <button onclick="toggleDoctor(this)" class="nav-link" style="width:100%"><i class="fa-solid fa-user-doctor"></i> Doctor <span class="ms-auto" id="doctorArrow" style="font-size:10px;transition:.3s">▼</span></button>
+    <div id="doctorDropdown" class="dropdown-sub" style="display:none">
+      <a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Doctor Page</a>
+      <<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Devendra Agarwal</a>
+<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anubha Gupta</a>
+<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anjali Gupta</a></div>
   </div>
+
+  {{-- SERVICES WITH DROPDOWN --}}
+  <div>
+    <button onclick="toggleServices(this)" class="nav-link" style="width:100%"><i class="fa-solid fa-stethoscope"></i> Services <span class="ms-auto" id="servicesArrow" style="font-size:10px;transition:.3s">▼</span></button>
+    <div id="servicesDropdown" class="dropdown-sub" style="display:none">
+      <a href="/admin/pages/services" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Services Page Edit</a>
+      <a href="/child-growth" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-child"></i> Child Growth</a>
+      <a href="/child-vaccination" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-syringe"></i> Child Vaccination</a>
+      <a href="/general-pediatrics" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart-pulse"></i> General Pediatrics</a>
+      <a href="/high-risk-pregnancy" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-triangle-exclamation"></i> High Risk Pregnancy</a>
+      <a href="/newborn-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-baby"></i> Newborn Care</a>
+      <a href="/normal-delivery" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-person-breastfeeding"></i> Normal Delivery</a>
+      <a href="/womens-health" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-venus"></i> Womens Health</a>
+      <a href="/pregnancy-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart"></i> Pregnancy Care</a>
+    </div>
+  </div>
+
+  <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
+  <a href="/appointment" target="_blank" class="nav-link"><i class="fa-solid fa-calendar-plus"></i>Book Appointment</a>
 
   <div class="menu-label">GENERAL</div>
   <a href="/" target="_blank" class="nav-link"><i class="fa-solid fa-globe"></i> View Website</a>
   <a href="/admin/logout" class="nav-link" style="color:#D63031"><i class="fa-solid fa-right-from-bracket" style="background:#FFF1F1;color:#D63031"></i> Logout</a>
-  <div class="mt-4 p-3" style="background:linear-gradient(135deg,#E84393,#FD79A8);border-radius:16px;color:#fff">
-    <div style="font-size:22px">👩‍⚕️</div>
-    <p class="mb-1 fw-bold" style="font-size:13px">Need Help?</p>
-    <p class="mb-0" style="font-size:12px;opacity:.9">Call: +91 90155 98903<br>Mon - Sat, 10 AM - 7 PM</p>
-  </div>
+ 
 </div>
 
 <!-- RIGHT SIDE -->
@@ -228,17 +252,26 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 </div></div>
 
 <script>
-function togglePages(btn){
-  let drop = document.getElementById('pagesDropdown');
-  let arrow = document.getElementById('pagesArrow');
+function toggleDoctor(btn){
+  let drop = document.getElementById('doctorDropdown');
+  let arrow = document.getElementById('doctorArrow');
   if(drop.style.display === 'none'){
     drop.style.display = 'block';
     arrow.style.transform = 'rotate(180deg)';
-    btn.classList.add('active');
   } else {
     drop.style.display = 'none';
     arrow.style.transform = 'rotate(0deg)';
-    btn.classList.remove('active');
+  }
+}
+function toggleServices(btn){
+  let drop = document.getElementById('servicesDropdown');
+  let arrow = document.getElementById('servicesArrow');
+  if(drop.style.display === 'none'){
+    drop.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+  } else {
+    drop.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
   }
 }
 function showSection(name, btn){
