@@ -98,26 +98,26 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
     <button onclick="toggleDoctor(this)" class="nav-link" style="width:100%"><i class="fa-solid fa-user-doctor"></i> Doctor <span class="ms-auto" id="doctorArrow" style="font-size:10px;transition:.3s">▼</span></button>
     <div id="doctorDropdown" class="dropdown-sub" style="display:none">
       <a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Doctor Page</a>
-      <<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Devendra Agarwal</a>
-<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anubha Gupta</a>
-<a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anjali Gupta</a></div>
+      <<a href="/admin/pages/doctor#devendra" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Devendra Agarwal</a>
+<a href="/admin/pages/doctor#anubha" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anubha Gupta</a>
+<a href="/admin/pages/doctor#anjali" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anjali Gupta</a></div>
   </div>
 
   {{-- SERVICES WITH DROPDOWN --}}
   <div>
     <button onclick="toggleServices(this)" class="nav-link" style="width:100%"><i class="fa-solid fa-stethoscope"></i> Services <span class="ms-auto" id="servicesArrow" style="font-size:10px;transition:.3s">▼</span></button>
     <div id="servicesDropdown" class="dropdown-sub" style="display:none">
-      <a href="/admin/pages/services" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Services Page Edit</a>
-      <a href="/child-growth" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-child"></i> Child Growth</a>
-      <a href="/child-vaccination" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-syringe"></i> Child Vaccination</a>
-      <a href="/general-pediatrics" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart-pulse"></i> General Pediatrics</a>
-      <a href="/high-risk-pregnancy" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-triangle-exclamation"></i> High Risk Pregnancy</a>
-      <a href="/newborn-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-baby"></i> Newborn Care</a>
-      <a href="/normal-delivery" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-person-breastfeeding"></i> Normal Delivery</a>
-      <a href="/womens-health" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-venus"></i> Womens Health</a>
-      <a href="/pregnancy-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart"></i> Pregnancy Care</a>
+      <a href="{{ route('admin.pages.edit','child-growth') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-child"></i> Child Growth</a>
+      <a href="{{ route('admin.pages.edit','child-vaccination') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-syringe"></i> Child Vaccination</a>
+      <a href="{{ route('admin.pages.edit','general-pediatrics') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart-pulse"></i> General Pediatrics</a>
+      <a href="{{ route('admin.pages.edit','high-risk-pregnancy') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-triangle-exclamation"></i> High Risk Pregnancy</a>
+      <a href="{{ route('admin.pages.edit','newborn-care') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-baby"></i> Newborn Care</a>
+      <a href="{{ route('admin.pages.edit','normal-delivery') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-person-breastfeeding"></i> Normal Delivery</a>
+      <a href="{{ route('admin.pages.edit','womens-health') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-venus"></i> Womens Health</a>
+      <a href="{{ route('admin.pages.edit','pregnancy-care') }}" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart"></i> Pregnancy Care</a>
     </div>
   </div>
+
 
   <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
   <a href="/appointment" target="_blank" class="nav-link"><i class="fa-solid fa-calendar-plus"></i>Book Appointment</a>

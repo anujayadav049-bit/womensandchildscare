@@ -5,6 +5,8 @@ use App\Models\Appointment;
 use App\Models\ContactMessage;
 use App\Models\Page;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\ServicePageController;
+use App\Models\ServicePage;
 
 // --- Public Pages ---
 Route::get('/', function () {
@@ -21,25 +23,27 @@ Route::get('/doctor', function () {
     return view('doctor', compact('page'));
 });
 
-// Doctor Details - 3 Doctors, 1 hi file doctor-detail.blade.php se chalegi
-// AB YE PAGE SE DYNAMIC HOGA - Doctor wali table ki zarurat nahi, koi nayi file nahi!
+// Doctor Details - 3 Doctors, 3 Alag-Alag File
 Route::get('/doctor/devendra-agarwal', function () {
     $page = Page::where('slug', 'doctor')->first();
     $doctor = (object)[
-        'name' => $page->team1_name ?? $page->doctor_name,
-        'designation' => $page->team1_role ?? $page->doctor_designation,
-        'image' => $page->team1_image ?? $page->doctor_image,
+        'name' => $page->team1_name,
+        'designation' => $page->team1_role,
+        'image' => $page->team1_image,
+        'qualification' => $page->team1_qualification,
+        'experience' => $page->team1_experience,
+        'specialization' => $page->team1_specialization,
+        'phone' => $page->team1_phone,
+        'email' => $page->team1_email,
+        'address' => $page->team1_address,
+        'timing' => $page->team1_timing,
+        'about' => $page->team1_about,
         'tag' => $page->doctor_tag,
-        'short_bio' => $page->doctor_short_bio,
-        'experience' => $page->doctor_experience,
-        'education' => $page->doctor_education,
-        'phone' => $page->doctor_phone,
-        'email' => $page->doctor_email,
-        'address' => $page->doctor_address,
-        'about' => $page->doctor_about,
-        'expertise' => $page->doctor_expertise,
+        'short_bio' => $page->team1_about,
+        'education' => $page->team1_qualification,
+        'expertise' => $page->team1_specialization,
     ];
-    return view('doctor-detail', compact('doctor', 'page'));
+    return view('devendra-agarwal', compact('doctor', 'page'));
 });
 Route::get('/doctor/anubha-gupta', function () {
     $page = Page::where('slug', 'doctor')->first();
@@ -47,17 +51,20 @@ Route::get('/doctor/anubha-gupta', function () {
         'name' => $page->team2_name,
         'designation' => $page->team2_role,
         'image' => $page->team2_image,
+        'qualification' => $page->team2_qualification,
+        'experience' => $page->team2_experience,
+        'specialization' => $page->team2_specialization,
+        'phone' => $page->team2_phone,
+        'email' => $page->team2_email,
+        'address' => $page->team2_address,
+        'timing' => $page->team2_timing,
+        'about' => $page->team2_about,
         'tag' => $page->doctor_tag,
-        'short_bio' => $page->doctor_short_bio,
-        'experience' => $page->doctor_experience,
-        'education' => $page->doctor_education,
-        'phone' => $page->doctor_phone,
-        'email' => $page->doctor_email,
-        'address' => $page->doctor_address,
-        'about' => $page->doctor_about,
-        'expertise' => $page->doctor_expertise,
+        'short_bio' => $page->team2_about,
+        'education' => $page->team2_qualification,
+        'expertise' => $page->team2_specialization,
     ];
-    return view('doctor-detail', compact('doctor', 'page'));
+    return view('anubha-gupta', compact('doctor', 'page'));
 });
 Route::get('/doctor/anjali-gupta', function () {
     $page = Page::where('slug', 'doctor')->first();
@@ -65,17 +72,20 @@ Route::get('/doctor/anjali-gupta', function () {
         'name' => $page->team3_name,
         'designation' => $page->team3_role,
         'image' => $page->team3_image,
+        'qualification' => $page->team3_qualification,
+        'experience' => $page->team3_experience,
+        'specialization' => $page->team3_specialization,
+        'phone' => $page->team3_phone,
+        'email' => $page->team3_email,
+        'address' => $page->team3_address,
+        'timing' => $page->team3_timing,
+        'about' => $page->team3_about,
         'tag' => $page->doctor_tag,
-        'short_bio' => $page->doctor_short_bio,
-        'experience' => $page->doctor_experience,
-        'education' => $page->doctor_education,
-        'phone' => $page->doctor_phone,
-        'email' => $page->doctor_email,
-        'address' => $page->doctor_address,
-        'about' => $page->doctor_about,
-        'expertise' => $page->doctor_expertise,
+        'short_bio' => $page->team3_about,
+        'education' => $page->team3_qualification,
+        'expertise' => $page->team3_specialization,
     ];
-    return view('doctor-detail', compact('doctor', 'page'));
+    return view('anjali-gupta', compact('doctor', 'page'));
 });
 
 Route::get('/contact', function () {
@@ -86,36 +96,38 @@ Route::get('/appointment', function () {
     $page = Page::where('slug', 'home')->first();
     return view('appointment', compact('page'));
 });
+
+// --- 8 SERVICE PAGES - FIXED! Ab ServicePage se data aayega ---
 Route::get('/child-growth', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('child-growth');
     return view('child-growth', compact('page'));
 });
 Route::get('/child-vaccination', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('child-vaccination');
     return view('child-vaccination', compact('page'));
 });
 Route::get('/general-pediatrics', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('general-pediatrics');
     return view('general-pediatrics', compact('page'));
 });
 Route::get('/high-risk-pregnancy', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('high-risk-pregnancy');
     return view('high-risk-pregnancy', compact('page'));
 });
 Route::get('/newborn-care', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('newborn-care');
     return view('newborn-care', compact('page'));
 });
 Route::get('/normal-delivery', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('normal-delivery');
     return view('normal-delivery', compact('page'));
 });
 Route::get('/womens-health', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('womens-health');
     return view('womens-health', compact('page'));
 });
 Route::get('/pregnancy-care', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = ServicePage::forPage('pregnancy-care');
     return view('pregnancy-care', compact('page'));
 });
 
@@ -126,7 +138,6 @@ Route::post('/contact', function (Request $request) {
     return back()->with('success', 'Thank you! Your message has been sent. We will call you back soon.');
 });
 
-// SIRF EK BAAR - Appointment wala, duplicate mat rakhna
 Route::post('/appointment', function (Request $request) {
     $request->validate(['name'=>'required','phone'=>'required']);
     Appointment::create($request->only(['name','phone','email','doctor','service','age','date','time','message']));
@@ -171,9 +182,11 @@ Route::get('/admin', function () {
 
 Route::get('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'edit'])->name('admin.settings.edit');
 Route::post('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('admin.settings.update');
-
-// Admin Pages - SIRF YE WALA, neeche wala duplicate DELETE kar diya hai
 Route::get('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'edit'])->name('admin.pages.edit');
 Route::match(['POST', 'PUT'], '/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'update'])->name('admin.pages.update');
 
-// DoctorController wali line HATA DI HAI - ab koi nayi file nahi chahiye!
+// --- Admin Services - Yahi se Edit hoga - UPAR wale /{slug} ko DELETE kar diya ---
+Route::get('/admin/services', [ServicePageController::class,'index'])->name('admin.services');
+Route::post('/admin/services/{slug}', [ServicePageController::class,'update'])->name('admin.services.update');
+
+// NOTE: Neeche wala Route::get('/{slug}') DELETE kar diya hai - wahi problem kar raha tha!

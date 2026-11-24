@@ -1,10 +1,27 @@
 @extends('layouts.app')
 
-@section('title', 'Dr. Anubha Gupta - Women & Childs Care')
+@section('title', (($doctor->name ?? $page->team2_name ?? 'Dr. Anubha Gupta')) . ' - Women & Childs Care')
 
 @section('content')
+@php
+  // FIX: Pehle $doctor (Route se team2_* se aaya hai) - Fir team2_* - Fir purana hardcoded - Taaki Admin wala hi dikhe!
+  $dName = $doctor->name ?? $page->team2_name ?? 'Dr. Anubha Gupta';
+  $dDesig = $doctor->designation ?? $page->team2_role ?? 'MBBS, DGO — Gynecologist & Obstetrician';
+  $dTag = $doctor->tag ?? $page->doctor_tag ?? 'AVAILABLE - CLOUDNINE & WOMEN & CHILD CARE';
+  $dBio = $doctor->about ?? $page->team2_about ?? '14 Years Experience | Consultant Obstetrician & Gynaecologist at Cloudnine Hospital, Gurgaon and Women & Child Care. Compassionate, calm and trusted care for every mother & child.';
+  $dExp = $doctor->experience ?? $page->team2_experience ?? '14+ Years';
+  $dEdu = $doctor->education ?? $doctor->qualification ?? $page->team2_qualification ?? 'CMC, Kolkata';
+  $dPhone = $doctor->phone ?? $page->team2_phone ?? $page->contact_phone ?? '+919015598903';
+  $dEmail = $doctor->email ?? $page->team2_email ?? $page->contact_email ?? 'info@womenandchildcare.com';
+  $dAddr = $doctor->address ?? $page->team2_address ?? $page->contact_address ?? 'Women & Child Care, H.No-211, Sector-31, Gurgaon, Haryana';
+  $dAbout = $doctor->about ?? $page->team2_about ?? $page->content ?? 'Dr. Anubha Gupta is a Consultant Obstetrician & Gynaecologist with 14 years of experience, practising at Cloudnine Hospital, Gurgaon and Women & Child Care. She has completed her training from the esteemed CMC, Kolkata and has subsequently worked with various renowned hospitals in Delhi NCR.';
+  $dExpList = $doctor->expertise ?? $doctor->specialization ?? $page->team2_specialization ?? "Pregnancy Care & High-Risk Pregnancy\nNormal & Safe Delivery\nGynaecology & Women’s Health\nChild Vaccination & Growth\nPatient Counselling & Comfort Care";
+  $dTiming = $doctor->timing ?? $page->team2_timing ?? '';
+  $dImg = $doctor->image ?? $page->team2_image ?? 'images/resource/team1-2.jpg';
+  $dBanner = $page->doctor_banner_image ?? 'images/resource/page-title.jpg';
+@endphp
 <!-- Start main-content -->
-    <section class="page-title" style="background-image: url({{ asset('images/resource/page-title.jpg') }});">
+    <section class="page-title" style="background-image: url({{ asset($dBanner) }});">
       <div class="auto-container">
         <div class="title-outer text-center"> <div class="h1 title">Doctors Details</div>
           <ul class="page-breadcrumb">
@@ -57,34 +74,36 @@
 
     <div class="dr-card">
       <div class="dr-photo">
-        <img src="{{ asset('images/resource/team1-2.jpg') }}" alt="Dr. Anubha Gupta">
+        <img src="{{ asset($dImg) }}" alt="{{ $dName }}">
       </div>
 
       <div class="dr-info">
-        <span class="dr-tag">● AVAILABLE - CLOUDNINE & WOMEN & CHILD CARE</span>
-        <h2>Dr. Anubha Gupta</h2>
-        <h3>MBBS, DGO — Gynecologist & Obstetrician</h3>
-        <p class="sub">14 Years Experience | Consultant Obstetrician & Gynaecologist at Cloudnine Hospital, Gurgaon and Women & Child Care. Compassionate, calm and trusted care for every mother & child.</p>
+        <span class="dr-tag">● {{ $dTag }}</span>
+        <h2>{{ $dName }}</h2>
+        <h3>{{ $dDesig }}</h3>
+        <p class="sub">{{ $dBio }}</p>
 
         <div class="dr-meta">
-          <div><small>Experience</small><b>14+ Years</b></div>
-          <div><small>Training</small><b>CMC, Kolkata</b></div>
-          <div><small>Phone</small><b><a href="tel:+919015598903">+91-90 15 59 8903</a></b></div>
-          <div><small>Email</small><b><a href="mailto:info@womenandchildcare.com">info@womenandchildcare.com</a></b></div>
+          <div><small>Experience</small><b>{{ $dExp }}</b></div>
+          <div><small>Training</small><b>{{ $dEdu }}</b></div>
+          <div><small>Phone</small><b><a href="tel:{{ $dPhone }}">{{ $dPhone }}</a></b></div>
+          <div><small>Email</small><b><a href="mailto:{{ $dEmail }}">{{ $dEmail }}</a></b></div>
+          @if($dTiming)<div><small>Timing</small><b>{{ $dTiming }}</b></div>@endif
+          <div><small>Specialization</small><b>{{ $dExpList }}</b></div>
         </div>
 
         <div class="dr-btns">
           <a href="{{ url('/appointment') }}" class="book">Book Appointment →</a>
           <a href="{{ url('/contact') }}" class="call">Visit Clinic</a>
         </div>
-        <p style="margin:14px 0 0; color:#888; font-size:14px;">📍 Women & Child Care, H.No-211, Sector-31, Gurgaon, Haryana</p>
+        <p style="margin:14px 0 0; color:#888; font-size:14px;">📍 {{ $dAddr }}</p>
       </div>
     </div>
 
     <div class="dr-bottom">
       <div class="dr-box">
-        <h4>About Dr. Anubha Gupta</h4>
-        <p>Dr. Anubha Gupta is a Consultant Obstetrician & Gynaecologist with 14 years of experience, practising at Cloudnine Hospital, Gurgaon and Women & Child Care. She has completed her training from the esteemed CMC, Kolkata and has subsequently worked with various renowned hospitals in Delhi NCR.</p>
+        <h4>About {{ $dName }}</h4>
+        <p>{!! nl2br(e($dAbout)) !!}</p>
         <p>She believes every pregnancy deserves personal attention, safety and calm guidance — from first check-up to delivery and after.</p>
         <div class="dr-award">🏅 Gold Medal & Dr. B. Halder Award — For Excellence in Obstetrics & Gynaecology</div>
       </div>
@@ -92,11 +111,9 @@
       <div class="dr-box">
         <h4>Expertise & Specialities</h4>
         <ul class="dr-list">
-          <li><span>✓</span> Pregnancy Care & High-Risk Pregnancy</li>
-          <li><span>✓</span> Normal & Safe Delivery</li>
-          <li><span>✓</span> Gynaecology & Women’s Health</li>
-          <li><span>✓</span> Child Vaccination & Growth</li>
-          <li><span>✓</span> Patient Counselling & Comfort Care</li>
+          @foreach(explode("\n", $dExpList ?? '') as $item)
+            @if(trim($item))<li><span>✓</span> {{ trim($item) }}</li>@endif
+          @endforeach
         </ul>
       </div>
     </div>

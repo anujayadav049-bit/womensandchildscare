@@ -39,9 +39,12 @@ class PageController extends Controller
             'testi2_text','testi2_name','testi2_role',
             'testi3_text','testi3_name','testi3_role',
             'team_subtitle','team_title',
-            'team1_name','team1_role',
-            'team2_name','team2_role',
-            'team3_name','team3_role',
+            // ===== TEAM 1 - DEVENDRA - PURI DETAIL =====
+            'team1_name','team1_role','team1_qualification','team1_experience','team1_specialization','team1_phone','team1_email','team1_address','team1_timing','team1_about',
+            // ===== TEAM 2 - ANUBHA - PURI DETAIL =====
+            'team2_name','team2_role','team2_qualification','team2_experience','team2_specialization','team2_phone','team2_email','team2_address','team2_timing','team2_about',
+            // ===== TEAM 3 - ANJALI - PURI DETAIL =====
+            'team3_name','team3_role','team3_qualification','team3_experience','team3_specialization','team3_phone','team3_email','team3_address','team3_timing','team3_about',
             'contact_left_title','contact_email_label','contact_email','contact_subtitle','contact_title','contact_btn_text',
             'blog_subtitle','blog_title',
             'blog1_date','blog1_title','blog1_excerpt',
@@ -164,7 +167,6 @@ class PageController extends Controller
             copy($file->getRealPath(), $destination.'/'.$name);
             $data['contact_banner_image'] = 'images/resource/'.$name;
         }
-        // Doctor Detail Image - Sabse Neeche wala
         if ($request->hasFile('doctor_image')) {
             $file = $request->file('doctor_image');
             $name = 'doctor-detail-'.time().'.'.$file->getClientOriginalExtension();

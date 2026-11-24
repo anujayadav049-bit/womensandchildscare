@@ -11,23 +11,26 @@
 :root{ --pink:#E84393; --pink-dark:#D6307A; --pink-light:#FDECF3; --pink-soft:#FFF5F8; --bg:#FFF9FB; --text:#2D3436; --muted:#636E72; }
 body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-size:14px}
 h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
-.sidebar{background:#fff;min-height:100vh;padding:28px 18px;position:sticky;top:0;border-right:1px solid #FDECF3}
-.sidebar .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;line-height:1.15}
+.sidebar{background:#fff;min-height:100vh;padding:22px 14px;position:sticky;top:0;border-right:1px solid #FDECF3}
+.sidebar .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;line-height:1.15;padding:0 6px}
 .sidebar .logo span{color:var(--pink)}
 .sidebar .logo small{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--muted)}
-.sidebar .menu-label{font-size:11px;font-weight:700;letter-spacing:1px;color:#B2BEC3;margin:18px 0 8px 10px}
-.sidebar .nav-link{color:#636E72;border-radius:12px;padding:12px;margin-bottom:4px;font-weight:600;font-size:13.5px;text-decoration:none;display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;cursor:pointer}
-.sidebar .nav-link i{width:32px;height:32px;border-radius:9px;background:#FFF0F5;color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.sidebar .menu-label{font-size:10px;font-weight:700;letter-spacing:1.2px;color:#B2BEC3;margin:20px 0 6px 10px}
+.sidebar .nav-link{color:#636E72;border-radius:10px;padding:9px 10px;margin-bottom:2px;font-weight:500;font-size:13px;text-decoration:none;display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:transparent;border:0;cursor:pointer;transition:.2s}
+.sidebar .nav-link i{width:28px;height:28px;border-radius:8px;background:#FFF0F5;color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .sidebar .nav-link:hover{background:var(--pink-soft);color:var(--pink-dark)}
 .sidebar .nav-link.active{background:var(--pink);color:#fff;box-shadow:0 8px 20px rgba(232,67,147,.35)}
 .sidebar .nav-link.active i{background:rgba(255,255,255,.25);color:#fff}
+.sidebar .sub-link{padding:8px 10px 8px 46px !important;font-size:12.5px;color:#7A8690}
+.sidebar .sub-link i{width:22px;height:22px;font-size:11px}
+.sidebar .sub-link:hover{color:var(--pink-dark)}
 .topbar{background:#fff;border:1px solid #FDECF3;border-radius:16px;padding:16px 20px}
 .card{border:1px solid #FDECF3;border-radius:18px;background:#fff}
 .form-control{border:1px solid #FDCEDF;border-radius:11px;padding:11px 13px;background:#FFF9FB;font-size:14px}
 .form-control:focus{border-color:var(--pink);box-shadow:0 0 0 4px #FDECF3;outline:none;background:#fff}
 .btn-pink{background:var(--pink);color:#fff;border:0;padding:11px 25px;border-radius:10px;font-weight:600;font-size:14px}
 .btn-pink:hover{background:var(--pink-dark);color:#fff}
-.dropdown-sub{border-left:3px solid var(--pink-light);margin-left:14px;padding-left:6px}
+.dropdown-sub{margin-left:8px}
 .section-title{background:#FFF5F8;border:1px solid #FDECF3;border-radius:12px;padding:12px 16px;font-weight:700;color:#D6307A;margin:22px 0 14px;}
 </style>
 </head>
@@ -37,22 +40,40 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
   <div class="logo">Women & <span>Child Care</span><br><small>GURUGRAM • ADMIN PANEL</small></div>
   <div class="menu-label">MAIN MENU</div>
   <a href="/admin/dashboard" class="nav-link"><i class="fa-solid fa-border-all"></i> Dashboard</a>
-  <div class="menu-label">WEBSITE</div>
-  <button onclick="togglePages(this)" class="nav-link active"><i class="fa-solid fa-layer-group"></i> All Pages <span class="ms-auto" id="pagesArrow" style="font-size:11px;transition:.3s">▼</span></button>
-  <div id="pagesDropdown" class="dropdown-sub" style="display:block">
-    <a href="/admin/pages/home" class="nav-link {{ $page->slug=='home' ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Home Page</a>
-    <a href="/admin/pages/about" class="nav-link {{ $page->slug=='about' ? 'active' : '' }}"><i class="fa-solid fa-circle-info"></i> About Page</a>
-    <a href="/admin/pages/doctor" class="nav-link {{ $page->slug=='doctor' ? 'active' : '' }}"><i class="fa-solid fa-user-doctor"></i> Doctor Page</a>
-    <a href="/admin/doctors" class="nav-link"><i class="fa-solid fa-user-doctor"></i> All Doctors</a>
-    <a href="/admin/pages/services" class="nav-link {{ $page->slug=='services' ? 'active' : '' }}"><i class="fa-solid fa-stethoscope"></i> Services Page</a>
-    <a href="/admin/pages/contact" class="nav-link {{ $page->slug=='contact' ? 'active' : '' }}"><i class="fa-solid fa-phone"></i> Contact Page</a>
-    <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
+  <div class="menu-label">WEBSITE PAGES</div>
+  <a href="/admin/pages/home" class="nav-link {{ $page->slug=='home' ? 'active' : '' }}"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="/admin/pages/about" class="nav-link {{ $page->slug=='about' ? 'active' : '' }}"><i class="fa-solid fa-circle-info"></i> About</a>
+  <div>
+    <button onclick="toggleDoctor(this)" class="nav-link {{ $page->slug=='doctor' ? 'active' : '' }}" style="width:100%"><i class="fa-solid fa-user-doctor"></i> Doctor <span class="ms-auto" id="doctorArrow" style="font-size:10px;transition:.3s">▼</span></button>
+    <div id="doctorDropdown" class="dropdown-sub" style="display: {{ $page->slug=='doctor' ? 'block' : 'none' }}">
+      <a href="/admin/pages/doctor" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Doctor Page Edit</a>
+      <a href="/admin/pages/doctor#devendra" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Devendra Agarwal</a>
+      <a href="/admin/pages/doctor#anubha" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anubha Gupta</a>
+      <a href="/admin/pages/doctor#anjali" class="nav-link sub-link"><i class="fa-solid fa-stethoscope"></i> Dr. Anjali Gupta</a>
+    </div>
   </div>
+  <div>
+    <button onclick="toggleServices(this)" class="nav-link {{ $page->slug=='services' ? 'active' : '' }}" style="width:100%"><i class="fa-solid fa-stethoscope"></i> Services <span class="ms-auto" id="servicesArrow" style="font-size:10px;transition:.3s">▼</span></button>
+    <div id="servicesDropdown" class="dropdown-sub" style="display: {{ $page->slug=='services' ? 'block' : 'none' }}">
+      <a href="/admin/pages/services" class="nav-link sub-link"><i class="fa-solid fa-pen"></i> Services Page Edit</a>
+      <a href="/child-growth" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-child"></i> Child Growth</a>
+      <a href="/child-vaccination" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-syringe"></i> Child Vaccination</a>
+      <a href="/general-pediatrics" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart-pulse"></i> General Pediatrics</a>
+      <a href="/high-risk-pregnancy" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-triangle-exclamation"></i> High Risk Pregnancy</a>
+      <a href="/newborn-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-baby"></i> Newborn Care</a>
+      <a href="/normal-delivery" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-person-breastfeeding"></i> Normal Delivery</a>
+      <a href="/womens-health" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-venus"></i> Womens Health</a>
+      <a href="/pregnancy-care" target="_blank" class="nav-link sub-link"><i class="fa-solid fa-heart"></i> Pregnancy Care</a>
+    </div>
+  </div>
+  <a href="/admin/pages/contact" class="nav-link {{ $page->slug=='contact' ? 'active' : '' }}"><i class="fa-solid fa-phone"></i> Contact</a>
+  <a href="/appointment" target="_blank" class="nav-link"><i class="fa-solid fa-calendar-plus"></i> Appointment</a>
+  <a href="/admin/settings" class="nav-link"><i class="fa-solid fa-gear"></i> Header / Footer</a>
   <div class="menu-label">GENERAL</div>
   <a href="/" target="_blank" class="nav-link"><i class="fa-solid fa-globe"></i> View Website</a>
   <a href="/admin/logout" class="nav-link" style="color:#D63031"><i class="fa-solid fa-right-from-bracket" style="background:#FFF1F1;color:#D63031"></i> Logout</a>
-  <div class="mt-4 p-3" style="background:linear-gradient(135deg,#E84393,#FD79A8);border-radius:16px;color:#fff">
-    <div style="font-size:22px">👩‍⚕️</div>
+  <div class="mt-4 p-3" style="background:linear-gradient(135deg,#E84393,#FD79A8);border-radius:14px;color:#fff">
+    <div style="font-size:20px">👩‍⚕️</div>
     <p class="mb-1 fw-bold" style="font-size:13px">Need Help?</p>
     <p class="mb-0" style="font-size:12px;opacity:.9">Call: +91 90155 98903<br>Mon - Sat, 10 AM - 7 PM</p>
   </div>
@@ -210,9 +231,9 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       <div class="mb-3"><label class="fw-bold mb-1">Second Content</label><textarea name="content2" rows="5" class="form-control">{{ $page->content2 }}</textarea></div>
       @endif
 
-      {{-- DOCTOR PAGE - SIRF LIST --}}
+      {{-- DOCTOR PAGE - PURI DETAIL WALA --}}
       @if($page->slug == 'doctor')
-      <div class="section-title">👩‍⚕️ DOCTOR PAGE - Banner + 3 Doctor Ki List</div>
+      <div class="section-title">👩‍⚕️ DOCTOR PAGE - Banner + 3 Doctor Ki Puri Detail</div>
       <h5>Doctor Banner</h5>
       <input type="text" name="doctor_banner_title" class="form-control" value="{{ $page->doctor_banner_title }}" placeholder="Banner Title">
       <input type="text" name="doctor_banner_breadcrumb" class="form-control mt-2" value="{{ $page->doctor_banner_breadcrumb }}" placeholder="Breadcrumb">
@@ -222,9 +243,54 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       <h5>Doctor Team - 3 Doctor Ki List</h5>
       <input type="text" name="team_subtitle" class="form-control" placeholder="Subtitle" value="{{ $page->team_subtitle }}">
       <input type="text" name="team_title" class="form-control mt-2" placeholder="Title" value="{{ $page->team_title }}">
-      <h5 class="mt-3">Doctor 1</h5><input type="text" name="team1_name" class="form-control" value="{{ $page->team1_name }}" placeholder="Doctor 1 Name"><input type="text" name="team1_role" class="form-control mt-2" value="{{ $page->team1_role }}" placeholder="Doctor 1 Role"><input type="file" name="team1_image" class="form-control mt-2">@if($page->team1_image)<img src="{{ asset($page->team1_image) }}" width="120" class="mt-1">@endif
-      <h5 class="mt-3">Doctor 2</h5><input type="text" name="team2_name" class="form-control" value="{{ $page->team2_name }}" placeholder="Doctor 2 Name"><input type="text" name="team2_role" class="form-control mt-2" value="{{ $page->team2_role }}" placeholder="Doctor 2 Role"><input type="file" name="team2_image" class="form-control mt-2">@if($page->team2_image)<img src="{{ asset($page->team2_image) }}" width="120" class="mt-1">@endif
-      <h5 class="mt-3">Doctor 3</h5><input type="text" name="team3_name" class="form-control" value="{{ $page->team3_name }}" placeholder="Doctor 3 Name"><input type="text" name="team3_role" class="form-control mt-2" value="{{ $page->team3_role }}" placeholder="Doctor 3 Role"><input type="file" name="team3_image" class="form-control mt-2">@if($page->team3_image)<img src="{{ asset($page->team3_image) }}" width="120" class="mt-1">@endif
+
+      {{-- DOCTOR 1 - DEVENDRA --}}
+      <div id="devendra" style="scroll-margin-top:20px; background:#FFF9FB; border:1px solid #FDECF3; border-radius:12px; padding:16px; margin-top:16px;">
+      <h5 class="mt-0">Doctor 1 - Dr. Devendra Agarwal - Puri Detail</h5>
+      <label class="fw-bold mt-2">Name</label><input type="text" name="team1_name" class="form-control" value="{{ $page->team1_name }}" placeholder="Doctor 1 Name">
+      <label class="fw-bold mt-2">Role / Designation</label><input type="text" name="team1_role" class="form-control" value="{{ $page->team1_role }}" placeholder="e.g. Senior Pediatrician">
+      <label class="fw-bold mt-2">Qualification</label><input type="text" name="team1_qualification" class="form-control" value="{{ $page->team1_qualification }}" placeholder="e.g. MBBS, MD - Pediatrics">
+      <label class="fw-bold mt-2">Experience</label><input type="text" name="team1_experience" class="form-control" value="{{ $page->team1_experience }}" placeholder="e.g. 20+ Years Experience">
+      <label class="fw-bold mt-2">Specialization</label><input type="text" name="team1_specialization" class="form-control" value="{{ $page->team1_specialization }}" placeholder="e.g. Child Growth, Vaccination">
+      <label class="fw-bold mt-2">Mobile Number</label><input type="text" name="team1_phone" class="form-control" value="{{ $page->team1_phone }}" placeholder="+91 90155 98903">
+      <label class="fw-bold mt-2">Email</label><input type="text" name="team1_email" class="form-control" value="{{ $page->team1_email }}" placeholder="doctor@gmail.com">
+      <label class="fw-bold mt-2">Address / Clinic Address</label><input type="text" name="team1_address" class="form-control" value="{{ $page->team1_address }}" placeholder="H.No-211, Sector-31, Gurgaon">
+      <label class="fw-bold mt-2">Timing</label><input type="text" name="team1_timing" class="form-control" value="{{ $page->team1_timing }}" placeholder="Mon - Sat, 10 AM - 7 PM">
+      <label class="fw-bold mt-2">About / Bio - Puri Detail</label><textarea name="team1_about" rows="4" class="form-control" placeholder="Doctor ke baare me puri detail likho">{{ $page->team1_about }}</textarea>
+      <label class="fw-bold mt-2">Photo</label><input type="file" name="team1_image" class="form-control">@if($page->team1_image)<img src="{{ asset($page->team1_image) }}" width="120" class="mt-1">@endif
+      </div>
+
+      {{-- DOCTOR 2 - ANUBHA --}}
+      <div id="anubha" style="scroll-margin-top:20px; background:#FFF9FB; border:1px solid #FDECF3; border-radius:12px; padding:16px; margin-top:16px;">
+      <h5 class="mt-0">Doctor 2 - Dr. Anubha Gupta - Puri Detail</h5>
+      <label class="fw-bold mt-2">Name</label><input type="text" name="team2_name" class="form-control" value="{{ $page->team2_name }}" placeholder="Doctor 2 Name">
+      <label class="fw-bold mt-2">Role / Designation</label><input type="text" name="team2_role" class="form-control" value="{{ $page->team2_role }}" placeholder="e.g. Gynecologist">
+      <label class="fw-bold mt-2">Qualification</label><input type="text" name="team2_qualification" class="form-control" value="{{ $page->team2_qualification }}" placeholder="e.g. MBBS, MS - Obstetrics">
+      <label class="fw-bold mt-2">Experience</label><input type="text" name="team2_experience" class="form-control" value="{{ $page->team2_experience }}" placeholder="e.g. 15+ Years Experience">
+      <label class="fw-bold mt-2">Specialization</label><input type="text" name="team2_specialization" class="form-control" value="{{ $page->team2_specialization }}" placeholder="e.g. High Risk Pregnancy">
+      <label class="fw-bold mt-2">Mobile Number</label><input type="text" name="team2_phone" class="form-control" value="{{ $page->team2_phone }}" placeholder="+91 90155 98903">
+      <label class="fw-bold mt-2">Email</label><input type="text" name="team2_email" class="form-control" value="{{ $page->team2_email }}" placeholder="doctor@gmail.com">
+      <label class="fw-bold mt-2">Address / Clinic Address</label><input type="text" name="team2_address" class="form-control" value="{{ $page->team2_address }}" placeholder="H.No-211, Sector-31, Gurgaon">
+      <label class="fw-bold mt-2">Timing</label><input type="text" name="team2_timing" class="form-control" value="{{ $page->team2_timing }}" placeholder="Mon - Sat, 10 AM - 7 PM">
+      <label class="fw-bold mt-2">About / Bio - Puri Detail</label><textarea name="team2_about" rows="4" class="form-control" placeholder="Doctor ke baare me puri detail likho">{{ $page->team2_about }}</textarea>
+      <label class="fw-bold mt-2">Photo</label><input type="file" name="team2_image" class="form-control">@if($page->team2_image)<img src="{{ asset($page->team2_image) }}" width="120" class="mt-1">@endif
+      </div>
+
+      {{-- DOCTOR 3 - ANJALI --}}
+      <div id="anjali" style="scroll-margin-top:20px; background:#FFF9FB; border:1px solid #FDECF3; border-radius:12px; padding:16px; margin-top:16px;">
+      <h5 class="mt-0">Doctor 3 - Dr. Anjali Gupta - Puri Detail</h5>
+      <label class="fw-bold mt-2">Name</label><input type="text" name="team3_name" class="form-control" value="{{ $page->team3_name }}" placeholder="Doctor 3 Name">
+      <label class="fw-bold mt-2">Role / Designation</label><input type="text" name="team3_role" class="form-control" value="{{ $page->team3_role }}" placeholder="e.g. Pediatrician">
+      <label class="fw-bold mt-2">Qualification</label><input type="text" name="team3_qualification" class="form-control" value="{{ $page->team3_qualification }}" placeholder="e.g. MBBS, DCH">
+      <label class="fw-bold mt-2">Experience</label><input type="text" name="team3_experience" class="form-control" value="{{ $page->team3_experience }}" placeholder="e.g. 10+ Years Experience">
+      <label class="fw-bold mt-2">Specialization</label><input type="text" name="team3_specialization" class="form-control" value="{{ $page->team3_specialization }}" placeholder="e.g. Newborn Care">
+      <label class="fw-bold mt-2">Mobile Number</label><input type="text" name="team3_phone" class="form-control" value="{{ $page->team3_phone }}" placeholder="+91 90155 98903">
+      <label class="fw-bold mt-2">Email</label><input type="text" name="team3_email" class="form-control" value="{{ $page->team3_email }}" placeholder="doctor@gmail.com">
+      <label class="fw-bold mt-2">Address / Clinic Address</label><input type="text" name="team3_address" class="form-control" value="{{ $page->team3_address }}" placeholder="H.No-211, Sector-31, Gurgaon">
+      <label class="fw-bold mt-2">Timing</label><input type="text" name="team3_timing" class="form-control" value="{{ $page->team3_timing }}" placeholder="Mon - Sat, 10 AM - 7 PM">
+      <label class="fw-bold mt-2">About / Bio - Puri Detail</label><textarea name="team3_about" rows="4" class="form-control" placeholder="Doctor ke baare me puri detail likho">{{ $page->team3_about }}</textarea>
+      <label class="fw-bold mt-2">Photo</label><input type="file" name="team3_image" class="form-control">@if($page->team3_image)<img src="{{ asset($page->team3_image) }}" width="120" class="mt-1">@endif
+      </div>
       @endif
 
       {{-- CONTACT --}}
@@ -247,17 +313,22 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
       <textarea name="contact_map_embed" class="form-control" rows="4" placeholder="Google Map Embed Code">{{ $page->contact_map_embed }}</textarea>
       @endif
 
-     
-      <button type="submit" class="btn-pink"><i class="fa-solid fa-floppy-disk me-2"></i> Save Page</button>
-      <a href="/" target="_blank" class="btn btn-light ms-2" style="border-radius:10px;border:1px solid #FDECF3">View Website</a>
+      <button type="submit" class="btn-pink mt-3"><i class="fa-solid fa-floppy-disk me-2"></i> Save Page</button>
+      <a href="/" target="_blank" class="btn btn-light ms-2 mt-3" style="border-radius:10px;border:1px solid #FDECF3">View Website</a>
     </form>
   </div>
 </div>
 </div></div>
 <script>
-function togglePages(btn){
-  let drop = document.getElementById('pagesDropdown');
-  let arrow = document.getElementById('pagesArrow');
+function toggleDoctor(btn){
+  let drop = document.getElementById('doctorDropdown');
+  let arrow = document.getElementById('doctorArrow');
+  if(drop.style.display === 'none'){ drop.style.display='block'; arrow.style.transform='rotate(180deg)'; }
+  else { drop.style.display='none'; arrow.style.transform='rotate(0deg)'; }
+}
+function toggleServices(btn){
+  let drop = document.getElementById('servicesDropdown');
+  let arrow = document.getElementById('servicesArrow');
   if(drop.style.display === 'none'){ drop.style.display='block'; arrow.style.transform='rotate(180deg)'; }
   else { drop.style.display='none'; arrow.style.transform='rotate(0deg)'; }
 }

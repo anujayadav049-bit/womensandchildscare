@@ -1,21 +1,22 @@
 @extends('layouts.app')
-@section('title', (($page->doctor_name ?? $doctor->name ?? 'Doctor')) . ' - Women & Childs Care')
+@section('title', (($doctor->name ?: $page->team1_name ?: 'Dr. Devendra Agarwal')) . ' - Women & Childs Care')
 @section('content')
 @php
-  // Admin Page se aaya hai toh $page, warna purana $doctor - dono chalega
-  $dName = $page->doctor_name ?? $doctor->name ?? $page->team1_name ?? 'Doctor';
-  $dDesig = $page->doctor_designation ?? $doctor->designation ?? $page->team1_role ?? '';
-  $dTag = $page->doctor_tag ?? $doctor->tag ?? 'AVAILABLE - WOMEN & CHILD CARE, GURGAON';
-  $dBio = $page->doctor_short_bio ?? $doctor->short_bio ?? '';
-  $dExp = $page->doctor_experience ?? $doctor->experience ?? '-';
-  $dEdu = $page->doctor_education ?? $doctor->education ?? '-';
-  $dPhone = $page->doctor_phone ?? $doctor->phone ?? $page->contact_phone ?? '-';
-  $dEmail = $page->doctor_email ?? $doctor->email ?? $page->contact_email ?? '-';
-  $dAddr = $page->doctor_address ?? $doctor->address ?? $page->contact_address ?? '';
-  $dAbout = $page->doctor_about ?? $doctor->about ?? $page->content ?? '';
-  $dExpList = $page->doctor_expertise ?? $doctor->expertise ?? '';
-  $dImg = $page->doctor_image ?? $doctor->image ?? $page->team1_image ?? 'images/resource/team1-1.jpg';
-  $dBanner = $page->doctor_banner_image ?? 'images/resource/page-title.jpg';
+  // FIX: ?: ka matlab hai - Khali ho ya null ho - Toh agla wala lo! Kabhi Blank nahi hoga!
+  $dName = $doctor->name ?: $page->team1_name ?: $page->doctor_name ?: 'Dr. Devendra Agarwal';
+  $dDesig = $doctor->designation ?: $page->team1_role ?: $page->doctor_designation ?: 'MBBS, MD — Senior Pediatrician';
+  $dTag = $doctor->tag ?: $page->doctor_tag ?: 'AVAILABLE - WOMEN & CHILD CARE, GURGAON';
+  $dBio = $doctor->about ?: $page->team1_about ?: $page->doctor_short_bio ?: 'Senior Pediatrician with 20+ years of experience in newborn care, child growth & vaccination. Trusted care for every child.';
+  $dExp = $doctor->experience ?: $page->team1_experience ?: $page->doctor_experience ?: '20+ Years';
+  $dEdu = $doctor->education ?: $doctor->qualification ?: $page->team1_qualification ?: $page->doctor_education ?: 'MBBS, MD - Pediatrics';
+  $dPhone = $doctor->phone ?: $page->team1_phone ?: $page->doctor_phone ?: $page->contact_phone ?: '+91-90 15 59 8903';
+  $dEmail = $doctor->email ?: $page->team1_email ?: $page->doctor_email ?: $page->contact_email ?: 'info@womenandchildcare.com';
+  $dAddr = $doctor->address ?: $page->team1_address ?: $page->doctor_address ?: $page->contact_address ?: 'Women & Child Care, H.No-211, Sector-31, Gurgaon, Haryana';
+  $dAbout = $doctor->about ?: $page->team1_about ?: $page->doctor_about ?: $page->content ?: 'Dr. Devendra Agarwal is a Senior Pediatrician with 20+ years of experience. He specializes in newborn care, child growth, vaccination and general pediatrics. He believes every child deserves personal attention, safety and calm guidance — from newborn to growing child.';
+  $dExpList = $doctor->expertise ?: $doctor->specialization ?: $page->team1_specialization ?: $page->doctor_expertise ?: "Newborn Care\nChild Growth & Development\nChild Vaccination\nGeneral Pediatrics";
+  $dTiming = $doctor->timing ?: $page->team1_timing ?: 'Mon - Sat, 10 AM - 2 PM';
+  $dImg = $doctor->image ?: $page->team1_image ?: $page->doctor_image ?: 'images/resource/team1-1.jpg';
+  $dBanner = $page->doctor_banner_image ?: 'images/resource/page-title.jpg';
 @endphp
 <section class="page-title" style="background-image: url({{ asset($dBanner) }});">
   <div class="auto-container"><div class="title-outer text-center"><div class="h1 title">Doctors Details</div>
@@ -63,13 +64,15 @@
       <div><small>Education</small><b>{{ $dEdu }}</b></div>
       <div><small>Phone</small><b><a href="tel:{{ $dPhone }}">{{ $dPhone }}</a></b></div>
       <div><small>Email</small><b><a href="mailto:{{ $dEmail }}">{{ $dEmail }}</a></b></div>
+      <div><small>Timing</small><b>{{ $dTiming }}</b></div>
+      <div><small>Specialization</small><b>{{ $dExpList }}</b></div>
     </div>
     <div class="dr-btns"><a href="{{ url('/appointment') }}" class="book">Book Appointment →</a><a href="{{ url('/contact') }}" class="call">Visit Clinic</a></div>
     <p style="margin:14px 0 0; color:#888; font-size:14px;">📍 {{ $dAddr }}</p>
   </div>
 </div>
 <div class="dr-bottom">
-  <div class="dr-box"><h4>About {{ $dName }}</h4>{!! nl2br(e($dAbout)) !!}</div>
+  <div class="dr-box"><h4>About {{ $dName }}</h4><p>{!! nl2br(e($dAbout)) !!}</p></div>
   <div class="dr-box"><h4>Expertise & Specialities</h4><ul class="dr-list">
     @foreach(explode("\n", $dExpList ?? '') as $item)
       @if(trim($item))<li><span>✓</span> {{ trim($item) }}</li>@endif
