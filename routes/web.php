@@ -5,27 +5,26 @@ use App\Models\Appointment;
 use App\Models\ContactMessage;
 use App\Models\Page;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\Admin\ServicePageController;
-use App\Models\ServicePage;
 
-// --- Public Pages ---
+// --- Public Pages - FIXED: first() ki jagah firstOrCreate, taaki $page kabhi NULL na ho ---
 Route::get('/', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = Page::firstOrCreate(['slug' => 'home'], ['title' => 'Home']);
     return view('home', compact('page'));
 });
 
 Route::get('/about', function () {
-    $page = Page::where('slug', 'about')->first();
+    $page = Page::firstOrCreate(['slug' => 'about'], ['title' => 'About']);
     return view('about', compact('page'));
 });
+
 Route::get('/doctor', function () {
-    $page = Page::where('slug', 'doctor')->first();
+    $page = Page::firstOrCreate(['slug' => 'doctor'], ['title' => 'Doctor']);
     return view('doctor', compact('page'));
 });
 
-// Doctor Details - 3 Doctors, 3 Alag-Alag File
+// Doctor Details - 3 Doctors
 Route::get('/doctor/devendra-agarwal', function () {
-    $page = Page::where('slug', 'doctor')->first();
+    $page = Page::firstOrCreate(['slug' => 'doctor'], ['title' => 'Doctor']);
     $doctor = (object)[
         'name' => $page->team1_name,
         'designation' => $page->team1_role,
@@ -46,7 +45,7 @@ Route::get('/doctor/devendra-agarwal', function () {
     return view('devendra-agarwal', compact('doctor', 'page'));
 });
 Route::get('/doctor/anubha-gupta', function () {
-    $page = Page::where('slug', 'doctor')->first();
+    $page = Page::firstOrCreate(['slug' => 'doctor'], ['title' => 'Doctor']);
     $doctor = (object)[
         'name' => $page->team2_name,
         'designation' => $page->team2_role,
@@ -67,7 +66,7 @@ Route::get('/doctor/anubha-gupta', function () {
     return view('anubha-gupta', compact('doctor', 'page'));
 });
 Route::get('/doctor/anjali-gupta', function () {
-    $page = Page::where('slug', 'doctor')->first();
+    $page = Page::firstOrCreate(['slug' => 'doctor'], ['title' => 'Doctor']);
     $doctor = (object)[
         'name' => $page->team3_name,
         'designation' => $page->team3_role,
@@ -89,45 +88,45 @@ Route::get('/doctor/anjali-gupta', function () {
 });
 
 Route::get('/contact', function () {
-    $page = Page::where('slug', 'contact')->first();
+    $page = Page::firstOrCreate(['slug' => 'contact'], ['title' => 'Contact']);
     return view('contact', compact('page'));
 });
 Route::get('/appointment', function () {
-    $page = Page::where('slug', 'home')->first();
+    $page = Page::firstOrCreate(['slug' => 'appointment'], ['title' => 'Appointment']);
     return view('appointment', compact('page'));
 });
 
-// --- 8 SERVICE PAGES - FIXED! Ab ServicePage se data aayega ---
+// --- 8 SERVICE PAGES ---
 Route::get('/child-growth', function () {
-    $page = ServicePage::forPage('child-growth');
+    $page = Page::firstOrCreate(['slug' => 'child-growth'], ['title' => 'Child Growth']);
     return view('child-growth', compact('page'));
 });
 Route::get('/child-vaccination', function () {
-    $page = ServicePage::forPage('child-vaccination');
+    $page = Page::firstOrCreate(['slug' => 'child-vaccination'], ['title' => 'Child Vaccination']);
     return view('child-vaccination', compact('page'));
 });
 Route::get('/general-pediatrics', function () {
-    $page = ServicePage::forPage('general-pediatrics');
+    $page = Page::firstOrCreate(['slug' => 'general-pediatrics'], ['title' => 'General Pediatrics']);
     return view('general-pediatrics', compact('page'));
 });
 Route::get('/high-risk-pregnancy', function () {
-    $page = ServicePage::forPage('high-risk-pregnancy');
+    $page = Page::firstOrCreate(['slug' => 'high-risk-pregnancy'], ['title' => 'High Risk Pregnancy']);
     return view('high-risk-pregnancy', compact('page'));
 });
 Route::get('/newborn-care', function () {
-    $page = ServicePage::forPage('newborn-care');
+    $page = Page::firstOrCreate(['slug' => 'newborn-care'], ['title' => 'Newborn Care']);
     return view('newborn-care', compact('page'));
 });
 Route::get('/normal-delivery', function () {
-    $page = ServicePage::forPage('normal-delivery');
+    $page = Page::firstOrCreate(['slug' => 'normal-delivery'], ['title' => 'Normal Delivery']);
     return view('normal-delivery', compact('page'));
 });
 Route::get('/womens-health', function () {
-    $page = ServicePage::forPage('womens-health');
+    $page = Page::firstOrCreate(['slug' => 'womens-health'], ['title' => 'Womens Health']);
     return view('womens-health', compact('page'));
 });
 Route::get('/pregnancy-care', function () {
-    $page = ServicePage::forPage('pregnancy-care');
+    $page = Page::firstOrCreate(['slug' => 'pregnancy-care'], ['title' => 'Pregnancy Care']);
     return view('pregnancy-care', compact('page'));
 });
 
@@ -182,11 +181,7 @@ Route::get('/admin', function () {
 
 Route::get('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'edit'])->name('admin.settings.edit');
 Route::post('/admin/settings', [App\Http\Controllers\Admin\SiteSettingController::class, 'update'])->name('admin.settings.update');
+
+// --- Admin Pages ---
 Route::get('/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'edit'])->name('admin.pages.edit');
 Route::match(['POST', 'PUT'], '/admin/pages/{slug}', [App\Http\Controllers\Admin\PageController::class, 'update'])->name('admin.pages.update');
-
-// --- Admin Services - Yahi se Edit hoga - UPAR wale /{slug} ko DELETE kar diya ---
-Route::get('/admin/services', [ServicePageController::class,'index'])->name('admin.services');
-Route::post('/admin/services/{slug}', [ServicePageController::class,'update'])->name('admin.services.update');
-
-// NOTE: Neeche wala Route::get('/{slug}') DELETE kar diya hai - wahi problem kar raha tha!

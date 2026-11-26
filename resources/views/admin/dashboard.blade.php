@@ -120,8 +120,7 @@ h1,h2,h3,h4,h5{font-family:'Poppins',sans-serif}
 
 
   <a href="/admin/pages/contact" class="nav-link"><i class="fa-solid fa-phone"></i> Contact</a>
-  <a href="/appointment" target="_blank" class="nav-link"><i class="fa-solid fa-calendar-plus"></i>Book Appointment</a>
-
+<a href="/admin/pages/appointment" class="nav-link"><i class="fa-solid fa-calendar-plus"></i> Appointment</a>
   <div class="menu-label">GENERAL</div>
   <a href="/" target="_blank" class="nav-link"><i class="fa-solid fa-globe"></i> View Website</a>
   <a href="/admin/logout" class="nav-link" style="color:#D63031"><i class="fa-solid fa-right-from-bracket" style="background:#FFF1F1;color:#D63031"></i> Logout</a>
